@@ -8,6 +8,8 @@ app.use(express.json())
 app.use(cors())
 app.use(bodyParser.urlencoded( {extended: true }))
 
+app.use('/auth', require("./routes/authentication.js"))
+
 const PORT = 8000
 
 pool.connect().then( () => {

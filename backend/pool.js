@@ -5,7 +5,7 @@ const connectDatabase = () => {
 
         user: 'postgres',
         password: 'postgres',
-        database: 'logintest',
+        database: 'math',
         host: 'localhost'
         }
 
