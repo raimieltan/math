@@ -9,6 +9,7 @@ app.use(cors())
 app.use(bodyParser.urlencoded( {extended: true }))
 
 app.use('/auth', require("./routes/authentication.js"))
+app.use('/problem', require("./routes/problems.js"))
 
 const PORT = 8000
 
