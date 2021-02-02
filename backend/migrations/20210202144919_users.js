@@ -7,7 +7,8 @@ exports.up = function(knex) {
             fname TEXT NOT NULL,
             lname TEXT NOT NULL,
             username TEXT NOT NULL, 
-            email TEXT NOT NULL
+            email TEXT NOT NULL,
+            password TEXT NOT NULL
 
         )
         `
