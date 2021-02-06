@@ -57,13 +57,13 @@ function SignUp() {
                                 alt="logo"></img></a>
                             <ul>
                                 <li class="selected">
-                                    <a href="homepage.js">Home</a>
+                                    <a href="/homepage">Home</a>
                                 </li>
                                 <li>
-                                    <a href="about.js">About</a>
+                                    <a href="/about">About</a>
                                 </li>
                                 <li>
-                                    <a href="services.js">Services</a>
+                                    <a href="/services">Services</a>
                                 </li>
                             </ul>
                         </div>

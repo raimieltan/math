@@ -36,7 +36,6 @@ const Login = () => {
             if (parseRes.token) {
                 localStorage.setItem("token", parseRes.token);
 
-
                 toast.success("Logged in sucessfully")
             } else {
 
@@ -56,15 +55,13 @@ const Login = () => {
 
                 <div id="featured">
 
-
                     <form onSubmit={onSubmitForm}>
                         <input type="email" name="email" placeholder="email" value={email} onChange={e => onChange(e)} />
                         <input type="password" name="password" placeholder="password" value={password} onChange={e => onChange(e)} />
                         <br></br>
                         <button id="btn">SIGN IN</button>
-
+                        <a id="reg" href="/signup">Register here</a>
                     </form>
-
                 </div>
 
             </div>

@@ -1,8 +1,5 @@
 import './style.css';
 
-
-
-
 function Homepage() {
     return (
         <div className="homepage">
@@ -11,17 +8,17 @@ function Homepage() {
                 <div class="page">
                     <div class="header">
                         <div>
-                            <a href="homepage.js" id="logo"><img src="./img/logo.png"
+                            <a href="/homepage" id="logo"><img src="./img/logo.png"
                                 alt="logo"></img></a>
                             <ul>
                                 <li class="selected">
-                                    <a href="homepage.js">Home</a>
+                                    <a href="/homepage">Home</a>
                                 </li>
                                 <li>
-                                    <a href="about.js">About</a>
+                                    <a href="/about">About</a>
                                 </li>
                                 <li>
-                                    <a href="services.js">Services</a>
+                                    <a href="/services">Services</a>
                                 </li>
                             </ul>
                         </div>
@@ -30,9 +27,8 @@ function Homepage() {
                         <div id="featured">
                             <input type="email" placeholder="EMAIL"></input>
                             <input type="password" placeholder="PASSWORD"></input>
-                            <a id="btn" href="wall.js">SIGN IN</a>
-                            <a id="reg" href="signup.js">Register here</a>
-
+                            <a id="btn" href="/wall">SIGN IN</a>
+                            <a id="reg" href="/signup">Register here</a>
                         </div>
                     </div>
                     <div class="footer">

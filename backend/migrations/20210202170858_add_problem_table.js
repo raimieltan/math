@@ -4,7 +4,9 @@ exports.up = function(knex) {
     `
       CREATE TABLE problem(
         problem_id SERIAL NOT NULL PRIMARY KEY,
-        problem TEXT NOT NULL
+        problem TEXT NOT NULL,
+        problem_solution TEXT,
+        problem_answer TEXT NOT NULL
       )
     `
   )

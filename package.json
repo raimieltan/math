@@ -16,5 +16,6 @@
   "bugs": {
     "url": "https://github.com/raimieltan/math/issues"
   },
-  "homepage": "https://github.com/raimieltan/math#readme"
+  "homepage": "https://github.com/raimieltan/math#readme",
+  "dependencies": {}
 }
