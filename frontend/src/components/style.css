@@ -98,7 +98,7 @@ body{
 	color:#32617f;
 	font-size:20px;
 }
-.body div#featured a#btn{
+.body div#featured button#btn{
 	background:url(../img/interface.png) no-repeat 0 20px;
 	border:0;
     height:102px;
