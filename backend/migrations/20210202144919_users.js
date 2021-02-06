@@ -6,7 +6,7 @@ exports.up = function(knex) {
             user_id SERIAL NOT NULL PRIMARY KEY,
             user_fname TEXT NOT NULL,
             user_lname TEXT NOT NULL,
-            user_email TEXT NOT NULL,
+            user_username TEXT NOT NULL,
             user_password TEXT NOT NULL
 
         )

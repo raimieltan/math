@@ -16,6 +16,7 @@ const authorization = (req, res, next) => {
 
     req.user = verify.user;
     next();
+
   } catch (err) {
     res.status(401).json({ error: err.message });
   }
