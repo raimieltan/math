@@ -37,7 +37,7 @@ export default function Profile( {setAuth }) {
     <Fragment>
       <div>
         <h1>
-          Name: {fName} {lName}
+          First name and Last Name: {fName} {lName}
         </h1>
 
         <button onClick={(e) => {
