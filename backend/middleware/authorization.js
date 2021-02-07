@@ -14,6 +14,7 @@ const authorization = (req, res, next) => {
 
     const verify = jwt.verify(token.slice(7), process.env.jwtSecret);
 
+    console.log(verify)
     req.user = verify.user;
     next();
 

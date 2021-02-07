@@ -2,18 +2,17 @@ const router = require('express').Router();
 const pool = require("../pool")
 const bcrypt = require("bcrypt")
 const jwtGenerator = require("../jwt/jwtGenerator")
-const authorization = require("../middleware/authorization")
 
 //register
 
 router.post('/register', async (req, res) => {
     try {
 
-        const { fname, lname, username, password } = req.body
+        const { fname, lname, email, password } = req.body
 
         //check if existing
 
-        const userCheck = await pool.query("SELECT * FROM users WHERE user_username = $1", [username])
+        const userCheck = await pool.query("SELECT * FROM users WHERE email = $1", [email])
 
         if (userCheck.rows.length > 0) {
             return res.status(401).send("User already exist")
@@ -26,9 +25,9 @@ router.post('/register', async (req, res) => {
         const saltRound = 10;
         const salt = await bcrypt.genSalt(saltRound)
 
-        const bcryptPassword = await bcrypt.hash(user_password, salt)
+        const bcryptPassword = await bcrypt.hash(password, salt)
 
-        const newUser = await pool.query("INSERT INTO users VALUES(default, $1, $2, $3, $4) RETURNING * ", [fname, lname, username, bcryptPassword])
+        const newUser = await pool.query("INSERT INTO users VALUES(default, $1, $2, $3, $4) RETURNING * ", [fname, lname, email, bcryptPassword])
 
         const token = jwtGenerator(newUser.rows[0].id)
         res.json({ token })
@@ -44,18 +43,18 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
 
-        const { username, password } = req.body;
+        const { email, password } = req.body;
 
-        const user = await pool.query('SELECT * FROM users WHERE user_username = $1', [username])
+        const user = await pool.query('SELECT * FROM users WHERE email = $1', [email])
 
         if (user.rows.length === 0) {
-            return res.status(401).json(("Password or Username is incorrect"))
+            return res.status(401).json(("Password or email is incorrect"))
         }
 
-        const isPasswordValid = await bcrypt.compare(password, user.rows[0].user_password)
+        const isPasswordValid = await bcrypt.compare(password, user.rows[0].password)
 
         if (!isPasswordValid) {
-            return res.status(500).send('Password or Username is incorrect')
+            return res.status(500).send('Password or email is incorrect')
         }
 
         const token = jwtGenerator(user.rows[0].id)

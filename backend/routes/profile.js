@@ -2,10 +2,12 @@ const router = require('express').Router();
 const pool = require("../pool.js");
 const authorization = require("../middleware/authorization.js");
 
-router.get('/profile', authorization, async (request, response) => {
+router.get('/', authorization, async (request, response) => {
 
   try {
-    const fetchProfile = await pool.query('SELECT * FROM users WHERE user_id = $1', [request.user])
+    const fetchProfile = await pool.query('SELECT * FROM users WHERE id = $1', [request.user])
+
+    response.json(fetchProfile.rows)
     console.log(request);
     // response.json({user: fetchProfile.rows[0]});
 
