@@ -1,10 +1,9 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
-import { toast } from "react-toastify"
+import { toast } from 'react-toastify'
 import './style.css';
 
 
-const Login = () => {
+const Login = ({ setAuth }) => {
 
     const [inputs, setInputs] = useState({
         email: "",
@@ -35,9 +34,11 @@ const Login = () => {
 
             if (parseRes.token) {
                 localStorage.setItem("token", parseRes.token);
-
+                setAuth(true)
                 toast.success("Logged in sucessfully")
             } else {
+
+                setAuth(false)
 
                 toast.error(parseRes)
             }

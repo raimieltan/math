@@ -7,8 +7,8 @@ router.get('/', authorization, async (request, response) => {
   try {
     const fetchProfile = await pool.query('SELECT * FROM users WHERE id = $1', [request.user])
 
-    response.json(fetchProfile.rows)
-    console.log(request);
+    response.json(fetchProfile.rows[0])
+
     // response.json({user: fetchProfile.rows[0]});
 
   } catch (error) {

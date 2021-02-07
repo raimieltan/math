@@ -5,7 +5,7 @@ import './style.css';
 
 
 
-function SignUp() {
+function SignUp({ setAuth }) {
 
     const [inputs, setInputs ] = useState({
         fname: "",
@@ -36,11 +36,13 @@ function SignUp() {
             const parseRes = await response.json()
             
             if(parseRes.token) {
+                setAuth(true)
                 localStorage.setItem("token" , parseRes.token)
                 
 
             }
         } catch (error) {
+            setAuth(false)
             console.error(error.message)
             window.location.reload(false);
         }
