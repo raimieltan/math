@@ -6,7 +6,7 @@ import {
   Redirect
 } from 'react-router-dom';
 import { Fragment, useState, useEffect } from 'react';
-// import Homepage from './components/homepage';
+import Homepage from './components/homepage';
 import Login from './components/login';
 import About from './components/about';
 import Profile from './components/profile'
@@ -37,7 +37,7 @@ function App() {
       <Router>
         <div class="container">
           <Switch>
-            {/* <Route exact path="/home" component={ () => <Homepage/> }/> */}
+            <Route exact path="/homepage" component={ () => <Homepage/> }/>
             <Route exact path="/login" component={ () => !authentication ? <Login setAuth={setAuth}/> : <Redirect to="/profile"/> }/>
             <Route exact path="/profile" component={ () => !authentication ? <Profile setAuth={setAuth}/> : <Redirect to="/login"/> }/>
             <Route exact path="/signup" component={ () => !authentication ? <SignUp setAuth={setAuth}/> : <Redirect to="/login"/> }/>
