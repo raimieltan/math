@@ -80,6 +80,7 @@ function SignUp({ setAuth }) {
                             <input type="email" name="email" placeholder="email" value={email} onChange={e => onChange(e)}></input>
                             <input type="password" name="password" placeholder="password" value={password} onChange={e => onChange(e)}></input>
                             <br></br>
+                            <h1>Test commit purposes</h1>
                             <button>Submit</button>
                         </form>
 
