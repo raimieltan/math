@@ -80,11 +80,10 @@ function SignUp({ setAuth }) {
 
                             <input type="fname" name="fname" placeholder="First Name" value={fname} onChange={e => onChange(e)}></input>
                             <input type="lname" name="lname" placeholder="Last Name" value={lname} onChange={e => onChange(e)}></input>
-                            <input type="email" name="email" placeholder="email" value={email} onChange={e => onChange(e)}></input>
-                            <input type="password" name="password" placeholder="password" value={password} onChange={e => onChange(e)}></input>
-                            <br></br>
+                            <input type="email" name="email" placeholder="Email" value={email} onChange={e => onChange(e)}></input>
+                            <input type="password" name="password" placeholder="Password" value={password} onChange={e => onChange(e)}></input>
                             {/* <h1>Test commit purposes</h1> */}
-                            <button>Submit</button>
+                            <button id = "btn">Submit</button>
                         </form>
 
                         </div>

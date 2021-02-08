@@ -79,26 +79,28 @@
 /*----------body----------*/
 
 .body div#featured{
-	margin-left: 10px;
-	padding: 10px;
+	margin: -50px -5px 0 25px;
+	padding: 6px;
 	background:url(../img/bg-content2.gif);
 }
 .body div#featured input{
-	border:2px;
-	margin: 20px;
-	height: 20px;
+	border-color: rgb(119, 170, 212);
+	border-radius: 10px 10px ;
+	/* border:2px; */
+	margin: 10px;
+	height: 30px;
 	width: 200px;
-	font-family: 'RokkittRegular';
-	color:#32617f;
-	font-size:15px;
+	/* font-family: 'RokkittRegular'; */
+	/* color:#32617f; */
+	font-size:18px;
 }
 .body div a#reg{
-	border:0;
+
 	color:#32617f;
-	font-size:20px;
+	font-size:16px;
 }
 .body div#featured button#btn{
-	margin-left: 60px;
+	margin-left: 135px;
 	background:url(../img/interface.png) no-repeat 0 20px;
 	border:0;
     height:102px;

@@ -75,8 +75,8 @@ const Login = ({ setAuth }) => {
                 <div id="featured">
 
                     <form onSubmit={onSubmitForm}>
-                        <input type="email" name="email" placeholder="email" value={email} onChange={e => onChange(e)} />
-                        <input type="password" name="password" placeholder="password" value={password} onChange={e => onChange(e)} />
+                        <input type="email" name="email" placeholder="Email" value={email} onChange={e => onChange(e)} />
+                        <input type="password" name="password" placeholder="Password" value={password} onChange={e => onChange(e)} />
                         <br></br>
                         <button id="btn">SIGN IN</button>
                         <a id="reg" href="/signup">Register here</a>
