@@ -6,7 +6,8 @@ exports.up = function(knex) {
         problem_id SERIAL NOT NULL PRIMARY KEY,
         problem TEXT NOT NULL,
         problem_solution TEXT,
-        problem_answer TEXT NOT NULL
+        problem_answer TEXT NOT NULL,
+        problem_choices JSON NOT NULL
       )
     `
   )
