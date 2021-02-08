@@ -51,7 +51,21 @@ const Login = ({ setAuth }) => {
     }
     return (
         <div >
-
+            <div class="header">
+                    <a href="/" id="logo"><img src="../img/logo.png"
+                        alt="logo"></img></a>
+                    <ul>
+                        <li class="selected">
+                            <a href="/">Home</a>
+                        </li>
+                        <li>
+                            <a href="/signup">Sign Up</a>
+                        </li>
+                        <li>
+                            <a href="/about">Login</a>
+                        </li>
+                    </ul>
+            </div>
             <div className="body">
 
                 <div id="featured">
@@ -64,13 +78,7 @@ const Login = ({ setAuth }) => {
                         <a id="reg" href="/signup">Register here</a>
                     </form>
                 </div>
-
             </div>
-
-
-
-
-
         </div>
     )
 }

@@ -1,9 +1,15 @@
 import { Fragment } from 'react';
 import React, { useState, useEffect } from 'react'
 
-export default function Profile() {
+export default function Profile( {setAuth }) {
   const [fName, setFname] = useState("")
   const [lName, setLname] = useState("")
+
+  const logout = (e) => {
+    e.preventDefault()
+    localStorage.removeItem("token")
+    setAuth(false)
+  }
 
   const getProfile = async () => {
 
@@ -31,9 +37,13 @@ export default function Profile() {
     <Fragment>
       <div>
         <h1>
-          Name: {fName} {lName}
+          First name and Last Name and waay na gid: {fName} {lName}
         </h1>
-      </div>
+
+        <button onClick={(e) => {
+          logout(e)
+        }}>Logout</button>
+      </div> 
 
     </Fragment>
   )

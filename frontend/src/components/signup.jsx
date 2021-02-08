@@ -80,11 +80,9 @@ function SignUp({ setAuth }) {
                             <input type="email" name="email" placeholder="email" value={email} onChange={e => onChange(e)}></input>
                             <input type="password" name="password" placeholder="password" value={password} onChange={e => onChange(e)}></input>
                             <br></br>
+                            {/* <h1>Test commit purposes</h1> */}
                             <button>Submit</button>
                         </form>
-
-                            {/* <a id="btn" href="wall.js">SIGN IN</a>
-                            <a id="reg" href="signup.js">Register here</a> */}
 
                         </div>
                     </div>

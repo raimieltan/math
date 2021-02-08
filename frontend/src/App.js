@@ -37,10 +37,10 @@ function App() {
       <Router>
         <div class="container">
           <Switch>
-            <Route exact path="/homepage" component={ () => <Homepage/> }/>
+            <Route exact path="/" component={ () => <Homepage/> }/>
             <Route exact path="/login" component={ () => !authentication ? <Login setAuth={setAuth}/> : <Redirect to="/profile"/> }/>
-            <Route exact path="/profile" component={ () => !authentication ? <Profile setAuth={setAuth}/> : <Redirect to="/login"/> }/>
-            <Route exact path="/signup" component={ () => !authentication ? <SignUp setAuth={setAuth}/> : <Redirect to="/login"/> }/>
+            <Route exact path="/profile" component={ () => authentication ? <Profile setAuth={setAuth}/> : <Redirect to="/login"/> }/>
+            <Route exact path="/signup" component={ () => !authentication ? <SignUp setAuth={setAuth}/> : <Redirect to="/profile"/> }/>
 
             <Route exact path="/about" component={ () => <About/>}/>
           </Switch>

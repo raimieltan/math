@@ -1,142 +1,39 @@
+.body{
 
-/*------------------------- Layout styles ------------------------*/ 
-body{
-	margin:0;
-	background:url(../img/bg-body.gif);
+	background: url(../img/bg.png) no-repeat;
 }
-.page{
-	background:url(../img/bg-header.gif) no-repeat center top;
-}
-
-/*------------------------- Header ------------------------*/ 
 .header{
-	background:url(../img/bg-header.gif) repeat-x;
-	height:68px;
-    padding:30px 0 0;
-}
-.header div{
-	width:940px;
-	padding:0 10px;
-	margin:0 auto;
-	overflow:hidden;
+	height:50px;
+	/* padding:30px 0 0; */
+	background-color: #b0d6f3;
 }
 
-.header div a#logo{
-	width: 250px;
-	height: 250px;
-	margin-top: -85px;
-	display:block;
-	float:left;
-	outline:none;
+.header a#logo{
+	margin: 20px;
+	image-resolution:inherit;
 }
-.header div a#logo img{
-	border:0;
-}
-.header div ul{
-	margin:0;
+
+.header ul{
 	list-style:none;
-	padding:13px 0 0;
 	float:right;
 }
-.header div ul li{
+.header ul li{
 	float:left;
-	margin:0 0 0 20px;
 }
-.header div ul li a:hover{
-	color:#3b7193;
+.header ul li a:hover{
+	color:#225270;
 }
-.header div ul li.selected a{
-	font-weight:bold;
-	color:#3b7193;
-}
-.header div ul li:first-child a{
+
+.header ul li:first-child a{
 	background:none;
 }
-.header div ul li a{
+.header ul li a{
 	font-size:16px;
 	text-shadow: 0 1px 0 #d1e6f7;
 	text-decoration:none;
-	color:#6cb2e6;
+	color:#2d495e;
 	font-family: 'RokkittRegular';
 	outline:none;
 	background:url(../img/interface.gif) no-repeat left 0;
 	padding:0 0 0 20px;
-}
-
-/*------------------------- Body ------------------------*/ 
-.body{
-	background:url(../img/bg-content.gif) repeat-x #90C5E7;
-}
-
-
-.body div:first-child{
-	background:url(../img/top-border.gif) repeat-x left bottom;
-	padding-bottom: 2px;
-}
-.body div#featured{
-	background:url(../img/bg.png) no-repeat !important;
-	height: 170px;
-	width: 350px;
-	align-items: center;
-	padding: 300px 500px !important;
-}
-
-.body div#featured input{
-	align-self: center;
-	border:0;
-	margin: 2px;
-	height: 20px;
-	width: 200px;
-	font-family: 'RokkittRegular';
-	color:#32617f;
-	font-size:15px;
-}
-.body div a#reg{
-	border:0;
-	padding-left: 145px;
-	font-family: 'RokkittRegular';
-	color:#32617f;
-	font-size:20px;
-}
-.body div#featured button#btn{
-	background:url(../img/interface.png) no-repeat 0 20px;
-	border:0;
-    height:102px;
-    width:392px;
-	font-family: 'RokkittRegular';
-	color:#32617f;
-	font-size:20px;
-	font-weight:bold;
-	outline:none;
-	display:block;
-	text-decoration:none;
-	text-align:center;
-	line-height:95px;
-	/* text-shadow: 0 1px 0 #dbebfa; */
-}
-
-.body div{
-	background:url(../img/bg-content2.gif);
-}
-
-
-/*------------------------- Footer ------------------------*/ 
-.footer{
-	width:auto;
-	background:url(../img/bg-footer.gif) repeat-x left top;
-
-}
-.footer div p{
-	color:#22323f;
-	font-size:12px;
-	font-family:arial;
-	float:left;
-	margin:0 0 0 65px;
-	width:555px;
-	text-align:justify;
-	text-shadow: 0 1px 0 #99abb9;
-	line-height:21px;
-}
-.footer div p a{
-	color:#fff;
 }
