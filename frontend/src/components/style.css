@@ -1,17 +1,57 @@
 .body{
-
 	background: url(../img/bg.png) no-repeat;
+	padding: 20pc;
 }
+/*----------home----------*/
+.home{
+	background: url(../img/home-bg.png);
+}
+.home div#featured{
+	height: 40pc;
+}
+
+/*----------media----------*/
+
+@media only screen and (max-width: 970px){
+	.body{
+		margin: -50px -180px;
+		height: 100px;
+		width: 540px;
+	}
+	.header{
+		margin-top: 50px;
+		height:20px;
+		width: 61pc;
+		background-color: #b0d6f3;
+		float:left;
+	}
+	.home{
+		margin: -50px -160px;
+		height: 40pc;
+		width: 72pc;
+	}
+	.home div#featured{
+		width: 20pc;
+	}
+	.header ul li a{
+		font-size:10px;
+	}
+}
+/*----------header----------*/
 .header{
 	height:50px;
-	/* padding:30px 0 0; */
+	padding: 10px;
 	background-color: #b0d6f3;
 }
 
-.header a#logo{
-	margin: 20px;
-	image-resolution:inherit;
+.header div#logo{
+	background: url(../img/logo.png);
+	margin: -9px 50px;
+	height: 70px;
+	float: left;
+	width: 230px;
 }
+
 
 .header ul{
 	list-style:none;
@@ -24,16 +64,54 @@
 	color:#225270;
 }
 
-.header ul li:first-child a{
-	background:none;
-}
+
 .header ul li a{
+	margin: 30px;
 	font-size:16px;
-	text-shadow: 0 1px 0 #d1e6f7;
+	text-shadow: 0 2px 0 #d1e6f7;
 	text-decoration:none;
 	color:#2d495e;
 	font-family: 'RokkittRegular';
-	outline:none;
 	background:url(../img/interface.gif) no-repeat left 0;
 	padding:0 0 0 20px;
 }
+
+/*----------body----------*/
+
+.body div#featured{
+	margin-left: 10px;
+	padding: 10px;
+	background:url(../img/bg-content2.gif);
+}
+.body div#featured input{
+	border:2px;
+	margin: 20px;
+	height: 20px;
+	width: 200px;
+	font-family: 'RokkittRegular';
+	color:#32617f;
+	font-size:15px;
+}
+.body div a#reg{
+	border:0;
+	color:#32617f;
+	font-size:20px;
+}
+.body div#featured button#btn{
+	margin-left: 60px;
+	background:url(../img/interface.png) no-repeat 0 20px;
+	border:0;
+    height:102px;
+    width:392px;
+	color:#32617f;
+	font-size:20px;
+	font-weight:bold;
+	outline:none;
+	display:block;
+	text-decoration:none;
+	text-align:center;
+	line-height:95px;
+	text-shadow: 0 1px 0 #dbebfa;
+}
+
+

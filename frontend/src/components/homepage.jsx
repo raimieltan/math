@@ -6,8 +6,11 @@ function Homepage() {
             <div className="homepage">
                 <div class="header">
                     <div>
-                        <a href="/" id="logo"><img src="./img/logo.png"
-                            alt="logo"></img></a>
+
+                        <a href="/">
+                            <div id="logo"></div>
+                        </a>
+
                         <ul>
                             <li class="selected">
                                 <a href="/">Home</a>
@@ -22,8 +25,9 @@ function Homepage() {
                     </div>
                 </div>
 
-                <div class="body">
-                    <div id="featured">
+                <div class="home" >
+                    <div id="featured" >
+                        {/* Mathemathics Learning Program */}
                     </div>
                 </div>
                 <div class="footer">

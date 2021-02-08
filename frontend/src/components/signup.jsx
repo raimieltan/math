@@ -53,23 +53,26 @@ function SignUp({ setAuth }) {
 
             <body>
                 <div class="page">
-                    <div class="header">
-                        <div>
-                            <a href="homepage.js" id="logo"><img src="./img/logo.png"
-                                alt="logo"></img></a>
-                            <ul>
-                                <li class="selected">
-                                    <a href="/homepage">Home</a>
-                                </li>
-                                <li>
-                                    <a href="/about">About</a>
-                                </li>
-                                <li>
-                                    <a href="/services">Services</a>
-                                </li>
-                            </ul>
-                        </div>
+                <div class="header">
+                    <div>
+
+                        <a href="/">
+                            <div id="logo"></div>
+                        </a>
+
+                        <ul>
+                            <li class="selected">
+                                <a href="/">Home</a>
+                            </li>
+                            <li>
+                                <a href="/signup">Sign Up</a>
+                            </li>
+                            <li>
+                                <a href="/login">Login</a>
+                            </li>
+                        </ul>
                     </div>
+                </div>
                     <div class="body">
                         <div id="featured">
                         
