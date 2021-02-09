@@ -1,7 +1,9 @@
 import { Fragment } from 'react';
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import './style.css';
 
-export default function Profile( {setAuth }) {
+
+export default function Profile({ setAuth }) {
   const [fName, setFname] = useState("")
   const [lName, setLname] = useState("")
 
@@ -14,15 +16,15 @@ export default function Profile( {setAuth }) {
   const getProfile = async () => {
 
     try {
-      const response = await fetch("http://localhost:8000/profile" , {
-        headers: {'Authorization': 'Bearer ' + localStorage.token }
+      const response = await fetch("http://localhost:8000/profile", {
+        headers: { 'Authorization': 'Bearer ' + localStorage.token }
       })
-      
+
       const parseRes = await response.json()
       setFname(parseRes.fname)
       setLname(parseRes.lname)
     } catch (error) {
-      console.error(error.message) 
+      console.error(error.message)
     }
 
 
@@ -32,38 +34,42 @@ export default function Profile( {setAuth }) {
     getProfile()
   }, [])
 
-  
+
   return (
     <Fragment>
-      <div>
       <div class="header">
-                    <div>
-                        <a href="/">
-                            <div id="logo"></div>
-                        </a>
+        <div>
+          <a href="/">
+            <div id="logo"></div>
+          </a>
 
-                        <ul>
-                            <li class="selected">
-                                <a href="/">Home</a>
-                            </li>
-                            <li>
-                                <a href="/signup">Sign Up</a>
-                            </li>
-                            <li>
-                                <a href="/login">Login</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-        <h1>
-          First name and Last Name and waay na gid: {fName} {lName}
-        </h1>
-
-        <button onClick={(e) => {
-          logout(e)
-        }}>Logout</button>
-      </div> 
-
-    </Fragment>
+          <ul>
+            <li class="selected">
+              <a href="/">Home</a>
+            </li>
+            <li>
+              <a href="/about">About</a>
+            </li>
+            <li>
+              <button onClick={(e) => {
+                logout(e)
+              }}>Logout
+                </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div id="bg">
+          <div id="avatar"></div>
+          <div id="featured">
+            <div>
+              <h2>Alexis{fName} {lName}Dalisay</h2>
+              <h3>Beginner</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Fragment >
   )
 }

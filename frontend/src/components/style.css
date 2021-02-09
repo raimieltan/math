@@ -111,9 +111,48 @@
 	outline:none;
 	display:block;
 	text-decoration:none;
-	text-align:center;
 	line-height:95px;
 	text-shadow: 0 1px 0 #dbebfa;
 }
 
 
+/*----------profile----------*/
+
+.profile-body {
+	margin: -50px -5px 0 25px;
+
+}
+.profile-body div#bg{
+	background:url(../img/bg-content3.jpg);
+	margin: 50px -400px;
+	height: 30pc;
+	width: 90pc;
+	padding: 9pc;
+}
+
+.profile-body div div#avatar{
+	background: url(../img/avatar.png);
+	margin-top: -9pc;
+	margin-left: 15pc;
+	padding: 20px;
+	width: 150px;
+	height: 150px;
+}
+
+.profile-body div div#featured{
+	margin-top: -150px;
+	margin-left: 5pc;
+	font-family: 'RokkittRegular';
+	font-size: 20px;
+	color:#1c3b4e;
+
+}
+
+.profile-body div#featured div{
+	float: none;
+	margin-right: 20pc;
+}
+/* .container{
+	width: 200px;
+	height: 50px;
+} */
