@@ -64,7 +64,7 @@ export default function Profile({ setAuth }) {
           <div id="avatar"></div>
           <div id="featured">
             <div>
-              <h2>Alexis{fName} {lName}Dalisay</h2>
+              <h2>{fName} {lName}</h2>
               <h3>Beginner</h3>
             </div>
           </div>
