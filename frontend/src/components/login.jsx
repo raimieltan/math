@@ -52,8 +52,11 @@ const Login = ({ setAuth }) => {
     return (
         <div >
             <div class="header">
-                    <a href="/" id="logo"><img src="../img/logo.png"
-                        alt="logo"></img></a>
+                <div>
+                    <a href="/">
+                        <div id="logo"></div>
+                    </a>
+
                     <ul>
                         <li class="selected">
                             <a href="/">Home</a>
@@ -62,17 +65,18 @@ const Login = ({ setAuth }) => {
                             <a href="/signup">Sign Up</a>
                         </li>
                         <li>
-                            <a href="/about">Login</a>
+                            <a href="/login">Login</a>
                         </li>
                     </ul>
+                </div>
             </div>
             <div className="body">
 
                 <div id="featured">
 
                     <form onSubmit={onSubmitForm}>
-                        <input type="email" name="email" placeholder="email" value={email} onChange={e => onChange(e)} />
-                        <input type="password" name="password" placeholder="password" value={password} onChange={e => onChange(e)} />
+                        <input type="email" name="email" placeholder="Email" value={email} onChange={e => onChange(e)} />
+                        <input type="password" name="password" placeholder="Password" value={password} onChange={e => onChange(e)} />
                         <br></br>
                         <button id="btn">SIGN IN</button>
                         <a id="reg" href="/signup">Register here</a>

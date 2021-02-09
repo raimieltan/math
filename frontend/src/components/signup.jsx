@@ -53,23 +53,26 @@ function SignUp({ setAuth }) {
 
             <body>
                 <div class="page">
-                    <div class="header">
-                        <div>
-                            <a href="homepage.js" id="logo"><img src="./img/logo.png"
-                                alt="logo"></img></a>
-                            <ul>
-                                <li class="selected">
-                                    <a href="/homepage">Home</a>
-                                </li>
-                                <li>
-                                    <a href="/about">About</a>
-                                </li>
-                                <li>
-                                    <a href="/services">Services</a>
-                                </li>
-                            </ul>
-                        </div>
+                <div class="header">
+                    <div>
+
+                        <a href="/">
+                            <div id="logo"></div>
+                        </a>
+
+                        <ul>
+                            <li class="selected">
+                                <a href="/">Home</a>
+                            </li>
+                            <li>
+                                <a href="/signup">Sign Up</a>
+                            </li>
+                            <li>
+                                <a href="/login">Login</a>
+                            </li>
+                        </ul>
                     </div>
+                </div>
                     <div class="body">
                         <div id="featured">
                         
@@ -77,11 +80,10 @@ function SignUp({ setAuth }) {
 
                             <input type="fname" name="fname" placeholder="First Name" value={fname} onChange={e => onChange(e)}></input>
                             <input type="lname" name="lname" placeholder="Last Name" value={lname} onChange={e => onChange(e)}></input>
-                            <input type="email" name="email" placeholder="email" value={email} onChange={e => onChange(e)}></input>
-                            <input type="password" name="password" placeholder="password" value={password} onChange={e => onChange(e)}></input>
-                            <br></br>
+                            <input type="email" name="email" placeholder="Email" value={email} onChange={e => onChange(e)}></input>
+                            <input type="password" name="password" placeholder="Password" value={password} onChange={e => onChange(e)}></input>
                             {/* <h1>Test commit purposes</h1> */}
-                            <button>Submit</button>
+                            <button id = "btn">Submit</button>
                         </form>
 
                         </div>
