@@ -156,3 +156,8 @@
 	width: 200px;
 	height: 50px;
 } */
+
+
+.problem-card{
+	border: 1px solid red;
+}

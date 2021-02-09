@@ -36,10 +36,10 @@ const Login = ({ setAuth }) => {
                 localStorage.setItem("token", parseRes.token);
                 setAuth(true)
                 toast.success("Logged in sucessfully")
+                
             } else {
 
                 setAuth(false)
-
                 toast.error(parseRes)
             }
 

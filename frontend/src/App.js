@@ -19,11 +19,15 @@ function App() {
 
   const checkAuthentication = async () => {
     try {
+      const res = await fetch("http://localhost:8000/verify", {
+        headers: { 'Authorization': 'Bearer ' + localStorage.token }
+      });
 
-      const response = await fetch("http://localhost:8000/verify")
-      
-    } catch (error) {
-      console.error(error.message)
+      const parseRes = await res.json();
+
+      parseRes === true ? setAuthentication(true) : setAuthentication(false);
+    } catch (err) {
+      console.error(err.message);
     }
   }
 
@@ -40,12 +44,12 @@ function App() {
       <Router>
         <div class="container">
           <Switch>
-            <Route exact path="/" component={ () => <Homepage/> }/>
+            <Route exact path="/" component={ () => !authentication ? <Homepage/>: <Redirect to="/profile"/> }/>
             <Route exact path="/login" component={ () => !authentication ? <Login setAuth={setAuth}/> : <Redirect to="/profile"/> }/>
-            <Route exact path="/profile" component={ () => authentication ? <Profile setAuth={setAuth}/> : <Redirect to="/"/> }/>
             <Route exact path="/signup" component={ () => !authentication ? <SignUp setAuth={setAuth}/> : <Redirect to="/profile"/> }/>
+            <Route exact path="/profile" component={ () => authentication ? <Profile setAuth={setAuth}/> : <Redirect to="/login"/> }/>
+
             <Route exact path="/quiz" component={ () => <Problem/>}/>
-            <Route exact path = "/profile" component = {() => <Profile/>}/>
             <Route exact path="/about" component={ () => <About/>}/>
           </Switch>
         </div>
