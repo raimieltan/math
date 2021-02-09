@@ -29,7 +29,7 @@ export default function Quiz() {
         <h1>Problems</h1>
 
         {problems.map( (p) => {
-          return <div className="problem-card">
+          return <div key={p.id} className="problem-card">
             
             <p>{p.problem}</p>
             <p>{p.problem_solution}</p>

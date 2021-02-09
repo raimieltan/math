@@ -50,6 +50,9 @@ export default function Profile({ setAuth }) {
               <a href="/about">About</a>
             </li>
             <li>
+              <a href="/quiz">Quiz</a>
+            </li>
+            <li>
               <button onClick={(e) => {
                 logout(e)
               }}>Logout
