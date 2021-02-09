@@ -4,7 +4,6 @@ const authorization = require("../middleware/authorization")
 router.get("/" , authorization, ( req, res ) => {
 
     try {
-
         res.json(true)
         
     } catch (error) {

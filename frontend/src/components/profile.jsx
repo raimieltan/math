@@ -1,5 +1,4 @@
-import { Fragment } from 'react';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import './style.css';
 
 
@@ -64,7 +63,7 @@ export default function Profile({ setAuth }) {
           <div id="avatar"></div>
           <div id="featured">
             <div>
-              <h2>Alexis{fName} {lName}Dalisay</h2>
+              <h2>{fName} {lName}</h2>
               <h3>Beginner</h3>
             </div>
           </div>
