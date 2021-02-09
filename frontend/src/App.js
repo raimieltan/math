@@ -9,8 +9,9 @@ import { Fragment, useState, useEffect } from 'react';
 import Homepage from './components/homepage';
 import Login from './components/login';
 import About from './components/about';
-import Profile from './components/profile'
+import Profile from './components/profile';
 import SignUp from './components/signup';
+import Problem from './components/problem';
 
 function App() {
 
@@ -43,7 +44,8 @@ function App() {
             <Route exact path="/login" component={ () => !authentication ? <Login setAuth={setAuth}/> : <Redirect to="/profile"/> }/>
             <Route exact path="/profile" component={ () => authentication ? <Profile setAuth={setAuth}/> : <Redirect to="/"/> }/>
             <Route exact path="/signup" component={ () => !authentication ? <SignUp setAuth={setAuth}/> : <Redirect to="/profile"/> }/>
-\
+            <Route exact path="/quiz" component={ () => <Problem/>}/>
+            <Route exact path = "/profile" component = {() => <Profile/>}/>
             <Route exact path="/about" component={ () => <About/>}/>
           </Switch>
         </div>
