@@ -25,9 +25,13 @@ function Homepage() {
                     </div>
                 </div>
 
-                <div class="home" >
+                <div >
                     <div id="featured" >
-                        {/* Mathemathics Learning Program */}
+
+                    <br></br>
+                    <a href="/learn">Learn</a>
+                    <br></br>
+                    <a href="/quiz">Quiz</a>
                     </div>
                 </div>
                 <div class="footer">

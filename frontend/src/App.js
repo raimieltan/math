@@ -12,6 +12,7 @@ import About from './components/about';
 import Profile from './components/profile';
 import SignUp from './components/signup';
 import Problem from './components/problem';
+import MainPage from './components/main-page'
 
 function App() {
 
@@ -49,8 +50,10 @@ function App() {
             <Route exact path="/signup" component={ () => !authentication ? <SignUp setAuth={setAuth}/> : <Redirect to="/profile"/> }/>
             <Route exact path="/profile" component={ () => authentication ? <Profile setAuth={setAuth}/> : <Redirect to="/login"/> }/>
 
+            <Route exact path="/main-page" component={ () =>  <MainPage/> }/>
             <Route exact path="/quiz" component={ () => <Problem/>}/>
             <Route exact path="/about" component={ () => <About/>}/>
+           
           </Switch>
         </div>
       </Router>
