@@ -1,5 +1,4 @@
-import { Fragment } from 'react';
-import React, { useState, useEffect } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 
 export default function Profile( {setAuth }) {
   const [fName, setFname] = useState("")

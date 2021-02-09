@@ -15,16 +15,16 @@ router.post('/add-problem', async (request, response) => {
     
     console.log(error.message);
     response.status(500).send("Error Creating Problem.");
-  
+
   }
 })
 
 //fetch problems
-router.get('/problems', async (request, response) => {
+router.get('/', async (request, response) => {
 
   try {
     
-    const fetchProblems = await pool.query('SELECT * FROM problems');
+    const fetchProblems = await pool.query('SELECT * FROM problem');
     response.json(fetchProblems.rows);
 
   } catch (error) {
