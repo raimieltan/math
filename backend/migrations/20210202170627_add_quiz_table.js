@@ -11,5 +11,7 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.raw('DROP TABLE quiz');
+  return knex.raw(`
+    DROP TABLE quiz
+  `);
 };

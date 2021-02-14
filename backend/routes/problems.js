@@ -24,7 +24,7 @@ router.get('/', async (request, response) => {
 
   try {
     
-    const fetchProblems = await pool.query('SELECT * FROM problem');
+    const fetchProblems = await pool.query('SELECT * FROM problems');
     response.json(fetchProblems.rows);
 
   } catch (error) {
