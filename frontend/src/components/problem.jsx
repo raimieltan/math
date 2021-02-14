@@ -33,7 +33,12 @@ export default function Quiz() {
       {problems.map((p) => {
         return <div key={p.id}>
 
-          <ProblemCard id={p.problem_id} problem={p.problem} solution={p.problem_solution} />
+          <ProblemCard 
+           id={p.problem_id}
+           problem={p.problem}
+           solution={p.problem_solution}
+           answer={p.problem_answer}/>
+
       </div>
 
       })}
