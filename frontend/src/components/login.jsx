@@ -78,7 +78,7 @@ const Login = ({ setAuth }) => {
                         <input type="email" name="email" placeholder="Email" value={email} onChange={e => onChange(e)} />
                         <input type="password" name="password" placeholder="Password" value={password} onChange={e => onChange(e)} />
                         <br></br>
-                        <button id="btn">SIGN IN</button>
+                        <button id="btn">SIGN IN</button> <br/> <br/>
                         <a id="reg" href="/signup">Register here</a>
                     </form>
                 </div>

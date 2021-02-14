@@ -15,16 +15,22 @@
 	.home div#featured{
 		height: 40pc;
 	}
-
+	.home{
+		/* margin-left: -5pc; */
+		background-position: -90px -20px; 
+	}
+	/* .home::before{
+		
+	} */
 	.header{
-		height:50px;
-		padding: 10px;
+		height:65px;
+		padding: 20px;
 		background-color: #b0d6f3;
 	}
 
 	.header div#logo{
 		background: url(../img/logo.png) no-repeat !important;
-		margin: -9px 50px;
+		margin: -22px 50px;
 		height: 70px;
 		float: left;
 		width: 230px;
@@ -74,19 +80,20 @@
 		color:#32617f;
 		font-size:16px;
 	}
-	.body div#featured button#btn{
-		margin-left: 135px;
-		border:0;
-		height:102px;
-		width:392px;
-		color:#32617f;
+	.body div#featured button{
+		box-shadow: 0px 10px 14px -7px #276873;
+		background:linear-gradient(to bottom, #90d6f0 5%, #5ea2ad 100%);
+		background-color:#90d6f0;
+		border-radius:8px;
+		display:inline-block;
+		cursor:pointer;
+		color:#ffffff;
+		font-family:Arial;
 		font-size:20px;
 		font-weight:bold;
-		outline:none;
-		display:block;
+		padding:13px 32px;
 		text-decoration:none;
-		line-height:95px;
-		text-shadow: 0 1px 0 #dbebfa;
+		text-shadow:0px 1px 0px #0f7394;
 	}
 
 
@@ -96,24 +103,24 @@
 		margin: -50px -5px 0 25px;
 
 	}
-	.profile-body div#bg{
+	/* .profile-body div#bg{
 		margin: 50px -400px;
 		height: 30pc;
 		width: 90pc;
 		padding: 9pc;
-	}
+	} */
 
 	.profile-body div div#avatar{
-		margin-top: -9pc;
-		margin-left: 15pc;
-		padding: 20px;
+		margin-top: 3pc;
+		/* margin-left: 15pc; */
+		padding: 100px;
 		width: 150px;
 		height: 150px;
 	}
 
 	.profile-body div div#featured{
-		margin-top: -150px;
-		margin-left: 5pc;
+		margin-top: -100px;
+		margin-left: -15pc;
 		font-family: 'RokkittRegular';
 		font-size: 20px;
 		color:#1c3b4e;
@@ -121,7 +128,6 @@
 	}
 
 	.profile-body div#featured div{
-		float: none;
 		margin-right: 20pc;
 	}
 	/* .container{
@@ -131,31 +137,7 @@
 }
 
 
-@media screen and (max-width: 1200px){
-	.body{
-		margin: -50px -180px;
-		height: 100px;
-		width: 540px;
-	}
-	.header{
-		margin-top: 50px;
-		height:20px;
-		width: 61pc;
-		background-color: #b0d6f3;
-		float:left;
-	}
-	.home{
-		margin: -50px -160px;
-		height: 40pc;
-		width: 72pc;
-	}
-	.home div#featured{
-		width: 20pc;
-	}
-	.header ul li a{
-		font-size:10px;
-	}
-}
+
 /*----------header----------*/
 .header{
 	background-color: #b0d6f3;
@@ -176,18 +158,14 @@
 .body div#featured{
 	background:url(../img/bg-content2.gif);
 }
-.body div#featured button#btn{
-	background:url(../img/interface.png) no-repeat 0 20px;
-
-}
 
 
 /*----------profile----------*/
 
-.profile-body div#bg{
+/* .profile-body div#bg{
 	background:url(../img/bg-content3.jpg) no-repeat !important;
 
-}
+} */
 
 .profile-body div div#avatar{
 	background: url(../img/avatar.png);
