@@ -49,9 +49,9 @@ function App() {
             <Route exact path="/login" component={ () => !authentication ? <Login setAuth={setAuth}/> : <Redirect to="/profile"/> }/>
             <Route exact path="/signup" component={ () => !authentication ? <SignUp setAuth={setAuth}/> : <Redirect to="/profile"/> }/>
             {/* <Route exact path="/profile" component={ () => authentication ? <Profile setAuth={setAuth}/> : <Redirect to="/login"/> }/> */}
-
+            <Route exact path="/profile" component={ () =>  authentication ? <Profile setAuth={setAuth}/> : <Redirect to="/"/> }/>
             <Route exact path="/main-page" component={ () =>  <MainPage/> }/>
-            <Route exact path="/profile" component={ () =>  <Profile/> }/>
+           
             <Route exact path="/quiz" component={ () => <Problem/>}/>
             <Route exact path="/about" component={ () => <About/>}/>
            

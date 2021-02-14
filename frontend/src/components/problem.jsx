@@ -1,5 +1,7 @@
 import { Fragment, useState, useEffect } from 'react';
 import './style.css';
+import ProblemCard from './problemCard'
+
 export default function Quiz() {
 
   const [problems, setProblems] = useState([]);
@@ -29,19 +31,10 @@ export default function Quiz() {
       <h1>Problems</h1>
 
       {problems.map((p) => {
-        return <div key={p.id} className="problem-card">
+        return <div key={p.id}>
 
-          <div class="card text-dark bg-info mb-3">
-            <div class="card-header">Question category</div>
-            <div class="card-body">
-              <h5 class="card-title">Question {p.id}</h5>
-              <p class="card-text">
-                <p>{p.problem}</p>
-                <p>{p.problem_solution}</p>
-              </p>
-            </div>
-          </div>
-        </div>
+          <ProblemCard id={p.problem_id} problem={p.problem} solution={p.problem_solution} />
+      </div>
 
       })}
     </div>
