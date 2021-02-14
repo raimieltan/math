@@ -1,5 +1,5 @@
 .body{
-	background: url(../img/bg.png) no-repeat !important;
+	background: url(../img/bg.png);
 }
 /*----------home----------*/
 .home{
@@ -9,35 +9,37 @@
 /*----------media----------*/
 
 @media (min-width: 1200px){
-	.body{
-		padding: 20pc;
+	div{
+		padding: unset;
+		margin: 0;
+		width: 100%;
 	}
-	.home div#featured{
-		height: 40pc;
+	.body{
+		padding: 20%;
+		background-position:center; 
+
 	}
 	.home{
-		/* margin-left: -5pc; */
-		background-position: -90px -20px; 
+		padding:350px;
+		background-position:center; 
 	}
-	/* .home::before{
-		
-	} */
+
 	.header{
-		height:65px;
-		padding: 20px;
+		width: 100%;
+		padding: 25px;
 		background-color: #b0d6f3;
 	}
 
 	.header div#logo{
-		background: url(../img/logo.png) no-repeat !important;
 		margin: -22px 50px;
 		height: 70px;
-		float: left;
-		width: 230px;
+		/* float: left; */
+		/* width: 230px; */
 	}
 
 
 	.header ul{
+		margin-top: -20px;
 		list-style:none;
 		float:right;
 	}
@@ -62,18 +64,15 @@
 	/*----------body----------*/
 
 	.body div#featured{
-		margin: -50px -5px 0 25px;
+		/* margin: -50px -5px 0 25px; */
 		padding: 6px;
 	}
 	.body div#featured input{
 		border-color: rgb(119, 170, 212);
 		border-radius: 10px 10px ;
-		/* border:2px; */
-		margin: 10px;
-		height: 30px;
-		width: 200px;
-		/* font-family: 'RokkittRegular'; */
-		/* color:#32617f; */
+		font-family: 'RokkittRegular';
+		color:#32617f;
+		margin: 20px;
 		font-size:18px;
 	}
 	.body div a#reg{
@@ -85,13 +84,14 @@
 		background:linear-gradient(to bottom, #90d6f0 5%, #5ea2ad 100%);
 		background-color:#90d6f0;
 		border-radius:8px;
-		display:inline-block;
+		/* display:inline-block; */
+		margin: -20px;
 		cursor:pointer;
 		color:#ffffff;
 		font-family:Arial;
 		font-size:20px;
 		font-weight:bold;
-		padding:13px 32px;
+		padding:5px 50px;
 		text-decoration:none;
 		text-shadow:0px 1px 0px #0f7394;
 	}
@@ -130,10 +130,16 @@
 	.profile-body div#featured div{
 		margin-right: 20pc;
 	}
-	/* .container{
-		width: 200px;
-		height: 50px;
-	} */
+
+	div #main-featured{
+		margin-top: 20px;
+		margin-left: 70px;
+	}
+
+	.card{
+		width: 80%;
+		background-color: rgb(194, 213, 224);
+	}
 }
 
 
@@ -141,6 +147,7 @@
 /*----------header----------*/
 .header{
 	background-color: #b0d6f3;
+
 }
 
 .header div#logo{
@@ -153,30 +160,13 @@
 	background:url(../img/interface.gif) no-repeat !important;
 }
 
-/*----------body----------*/
 
-.body div#featured{
-	background:url(../img/bg-content2.gif);
-}
-
-
-/*----------profile----------*/
-
-/* .profile-body div#bg{
-	background:url(../img/bg-content3.jpg) no-repeat !important;
-
-} */
 
 .profile-body div div#avatar{
 	background: url(../img/avatar.png);
 
 }
 
-
-/* .container{
-	width: 200px;
-	height: 50px;
-} */
 
 
 .problem-card{
@@ -185,3 +175,4 @@
 	border: 1px solid black;
 	border-radius: 20px	;
 }
+
