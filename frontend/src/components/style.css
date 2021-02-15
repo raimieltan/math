@@ -140,6 +140,25 @@
 		width: 80%;
 		background-color: rgb(194, 213, 224);
 	}
+	.problem-card{
+		margin-left: 28%;
+		width: 50%;
+	}
+	.body-problem{
+		background-color: rgb(195, 222, 250);
+		background-position: center;
+		padding: 5%;
+	}
+	.card-header{
+		font-size: 20px;
+		font-weight: bold;
+	}
+	.card-body{
+		font-size: 20px;
+	}
+	.card-text{
+		font-size: 15px;
+	}
 }
 
 
@@ -161,18 +180,8 @@
 }
 
 
-
 .profile-body div div#avatar{
 	background: url(../img/avatar.png);
 
-}
-
-
-
-.problem-card{
-	margin-top: 30px;
-	width: 60%;
-	border: 1px solid black;
-	border-radius: 20px	;
 }
 

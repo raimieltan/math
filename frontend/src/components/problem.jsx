@@ -4,13 +4,13 @@ import ProblemCard from './problemCard'
 
 export default function Quiz() {
 
-  const [problems, setProblems] = useState([{problem_id:1}]);
+  const [problems, setProblems] = useState([{ problem_id: 1 }]);
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [showScore, setShowScore] = useState(false)
   const [score, setScore] = useState(0)
 
   const [choices, setChoices] = useState([])
-  const choicesLetters = [1,2,3,4]
+  const choicesLetters = [1, 2, 3, 4]
 
   const fetchProblems = async () => {
 
@@ -32,51 +32,51 @@ export default function Quiz() {
 
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
     }
-}
+  }
   const fetchChoices = async (id) => {
 
     try {
 
-        const response = await fetch(`http://localhost:8000/choices/${id}`)
-        const parseRes = await response.json()
+      const response = await fetch(`http://localhost:8000/choices/${id}`)
+      const parseRes = await response.json()
 
-        shuffleArray(parseRes)
+      shuffleArray(parseRes)
 
-        choicesLetters[0] = {id: parseRes[0].id, name: 'A' , content: parseRes[0].content, is_correct: parseRes[0].is_correct}
-        choicesLetters[1] = {id: parseRes[1].id, name: 'B' , content: parseRes[1].content, is_correct: parseRes[1].is_correct}
-        choicesLetters[2] = {id: parseRes[2].id, name: 'C' , content: parseRes[2].content, is_correct: parseRes[2].is_correct}
-        choicesLetters[3] = {id: parseRes[3].id, name: 'D' , content: parseRes[3].content, is_correct: parseRes[3].is_correct}
-       
-        setChoices(choicesLetters)
-        console.log(choices)
+      choicesLetters[0] = { id: parseRes[0].id, name: 'A', content: parseRes[0].content, is_correct: parseRes[0].is_correct }
+      choicesLetters[1] = { id: parseRes[1].id, name: 'B', content: parseRes[1].content, is_correct: parseRes[1].is_correct }
+      choicesLetters[2] = { id: parseRes[2].id, name: 'C', content: parseRes[2].content, is_correct: parseRes[2].is_correct }
+      choicesLetters[3] = { id: parseRes[3].id, name: 'D', content: parseRes[3].content, is_correct: parseRes[3].is_correct }
+
+      setChoices(choicesLetters)
+      console.log(choices)
 
     } catch (error) {
-        console.error(error.message)
+      console.error(error.message)
 
     }
-}
+  }
 
 
-useEffect(() => {
+  useEffect(() => {
     fetchChoices(problems[currentQuestion].problem_id)
-  
 
-},[currentQuestion])
+
+  }, [currentQuestion])
 
 
   const handleNextOptionClick = (isCorrect) => {
-    if(isCorrect){
+    if (isCorrect) {
       setScore(score + 1)
     }
-    else{
+    else {
       console.log(isCorrect)
     }
     const nextQuestion = currentQuestion + 1
 
-    if (nextQuestion < problems.length-1) {
+    if (nextQuestion < problems.length - 1) {
       setCurrentQuestion(nextQuestion)
     }
     else {
@@ -87,39 +87,55 @@ useEffect(() => {
 
   return problems.length > 0 ? (
 
-    <div>
-      <h1>Problems</h1>
+    <div class="header">
 
 
       {showScore ? (
         <div>
-          You scored {score} out of {problems.length-1}
+          You scored {score} out of {problems.length - 1}
         </div>
       ) : (
 
-        <div>
+          <div>
 
-          <ProblemCard
-            id={problems[currentQuestion].problem_id}
-            problem={problems[currentQuestion].problem_title}
-            solution={problems[currentQuestion].problem_solution}
-            answer={problems[currentQuestion].problem_answer}
-          />
+            <a href="/">
+              <div id="logo"></div>
+            </a>
 
-          <div id={'quiz' + problems[currentQuestion].problem_id}>
-                    {choices.map((c) => {
+            <ul>
+              <li class="selected">
+                <a href="/main-page">Home</a>
+              </li>
+              <li>
+                <a href="/profile">Profile</a>
+              </li>
+              <li>
+                <a href="/learn">Learn</a>
+              </li>
+            </ul>
 
-                        return <div>
-                            <button value={c.content} onClick={() => handleNextOptionClick(c.is_correct)}>{c.name + " " + c.content}</button>
-                        </div>
-                    })}
-          </div>
+            <ProblemCard
+              id={problems[currentQuestion].problem_id}
+              problem={problems[currentQuestion].problem_title}
+              solution={problems[currentQuestion].problem_solution}
+              answer={problems[currentQuestion].problem_answer}
+            />
+
+            <div id={'quiz' + problems[currentQuestion].problem_id}>
+              {choices.map((c) => {
+
+                return <div>
+                  <button value={c.content} onClick={() => handleNextOptionClick(c.is_correct)}>{c.name + " " + c.content}</button>
+                </div>
+              })}
+            </div>
 
 
           </div>
         )}
     </div>
-  
-): (
-  <h1>Loading..</h1>
-)} 
+
+  ) : (
+      <h1>Loading..</h1>
+    )
+} 

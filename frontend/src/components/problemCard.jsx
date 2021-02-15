@@ -1,6 +1,6 @@
 import { Fragment, useState, useEffect } from 'react';
 import './style.css';
-export default function Quiz({ id, problem }) {
+export default function Quiz({id, problem }) {
     
 
     return (
@@ -9,7 +9,7 @@ export default function Quiz({ id, problem }) {
             <div className="problem-card">
 
                 <div class="card text-dark bg-info mb-3">
-                    <div class="card-header">Question category</div>
+                <div class="card-header">Question {id}</div>
                     <div class="card-body">
                             <p>{problem}</p>
                
@@ -18,8 +18,6 @@ export default function Quiz({ id, problem }) {
 
 
             </div>
-
-
         </div>
 
     )
