@@ -8,9 +8,54 @@ export default function Quiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [showScore, setShowScore] = useState(false)
   const [score, setScore] = useState(0)
-
   const [choices, setChoices] = useState([])
   const choicesLetters = [1, 2, 3, 4]
+  const [variables, setVariables] = useState({});
+  const [currentProblem, setCurrentProblem] = useState({});
+
+  const answer = (type, values) => {
+    if (type === 'Multiplication') {
+      return values.variable_x * values.variable_y;
+    }
+
+    if (type === 'Subtraction') {
+      return values.variable_x - values.variable_y;
+    }
+
+    if (type === 'Addition') {
+      return values.variable_x + values.variable_y;
+    }
+
+  }
+
+  let fillBlanksProblems = 
+    [
+      {
+        problem: `Use long multiplication to calculate ${variables.variable_x} X ${variables.variable_y}`,
+        answer: answer('Multiplication', variables),
+        solution: 'Multiply the values.'
+      },
+
+      {
+        problem: `What is the difference of ${variables.variable_x} - ${variables.variable_y}`,
+        answer: answer('Subtraction', variables),
+        solution: 'Subtract the values.'
+      },
+
+      {
+        problem: `What is the sum of ${variables.variable_x} and ${variables.variable_y}`,
+        answer: answer('Addition', variables),
+        solution: 'Add the values.'
+      }
+    ]
+  
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
 
   const fetchProblems = async () => {
 
@@ -24,18 +69,32 @@ export default function Quiz() {
     }
   }
 
+  const fetchValues = async () => {
+
+    try {
+
+      const response = await fetch("http://localhost:8000/variables")
+      const parseRes = await response.json()
+
+      //shuffle values
+      shuffleArray(parseRes);
+      setVariables(parseRes[0]);
+      
+      //shuffle questions
+      shuffleArray(fillBlanksProblems);
+      setCurrentProblem(fillBlanksProblems[0]);
+
+    } catch (error) {
+      console.error(error.message);
+    }
+
+  }
 
   useEffect(() => {
+    fetchValues();
     fetchProblems();
   }, []);
 
-
-  const shuffleArray = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-  }
   const fetchChoices = async (id) => {
 
     try {
@@ -43,6 +102,7 @@ export default function Quiz() {
       const response = await fetch(`http://localhost:8000/choices/${id}`)
       const parseRes = await response.json()
 
+      //shuffle choices
       shuffleArray(parseRes)
 
       choicesLetters[0] = { id: parseRes[0].id, name: 'A', content: parseRes[0].content, is_correct: parseRes[0].is_correct }
@@ -57,13 +117,11 @@ export default function Quiz() {
       console.error(error.message)
 
     }
-  }
 
+  }
 
   useEffect(() => {
     fetchChoices(problems[currentQuestion].problem_id)
-
-
   }, [currentQuestion])
 
 
@@ -114,14 +172,15 @@ export default function Quiz() {
                 </li>
               </ul>
             </div>
-            <ProblemCard
+
+            {/* <ProblemCard
               id={problems[currentQuestion].problem_id}
               problem={problems[currentQuestion].problem_title}
               solution={problems[currentQuestion].problem_solution}
               answer={problems[currentQuestion].problem_answer}
-            />
+            /> */}
 
-            <div id={'quiz' + problems[currentQuestion].problem_id}>
+            {/* <div id={'quiz' + problems[currentQuestion].problem_id}>
               {choices.map((c) => {
 
                 return <div class = "choices">
@@ -132,8 +191,13 @@ export default function Quiz() {
                   </ul>
                 </div>
               })}
-            </div>
+            </div> */}
 
+            <div>
+              {currentProblem.problem} <br/>
+              {currentProblem.answer} <br/>
+              {currentProblem.solution} <br/>
+            </div>
 
           </div>
         )}
