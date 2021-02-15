@@ -1,3 +1,4 @@
+
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -45,16 +46,16 @@ function App() {
       <Router>
         <div class="container">
           <Switch>
-            <Route exact path="/" component={ () => !authentication ? <Homepage/>: <Redirect to="/profile"/> }/>
-            <Route exact path="/login" component={ () => !authentication ? <Login setAuth={setAuth}/> : <Redirect to="/main-page"/> }/>
-            <Route exact path="/signup" component={ () => !authentication ? <SignUp setAuth={setAuth}/> : <Redirect to="/main-page"/> }/>
+            <Route exact path="/" component={() => !authentication ? <Homepage /> : <Redirect to="/profile" />} />
+            <Route exact path="/login" component={() => !authentication ? <Login setAuth={setAuth} /> : <Redirect to="/main-page" />} />
+            <Route exact path="/signup" component={() => !authentication ? <SignUp setAuth={setAuth} /> : <Redirect to="/main-page" />} />
             {/* <Route exact path="/profile" component={ () => authentication ? <Profile setAuth={setAuth}/> : <Redirect to="/login"/> }/> */}
-            <Route exact path="/profile" component={ () =>  authentication ? <Profile setAuth={setAuth}/> : <Redirect to="/"/> }/>
-            <Route exact path="/main-page" component={ () =>  <MainPage/> }/>
-           
-            <Route exact path="/quiz" component={ () => <Problem/>}/>
-            <Route exact path="/about" component={ () => <About/>}/>
-           
+            {/* <Route exact path="/profile" component={ () =>  authentication ? <Profile setAuth={setAuth}/> : <Redirect to="/"/> }/> */}
+            <Route exact path="/main-page" component={() => <MainPage />} />
+
+            <Route exact path="/quiz" component={() => <Problem />} />
+            <Route exact path="/about" component={() => <About />} />
+            <Route exact path="/profile" component={() => <Profile />} /> {/*delete later*/}
           </Switch>
         </div>
       </Router>

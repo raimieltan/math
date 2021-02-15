@@ -5,7 +5,7 @@ export default function Quiz({id, problem }) {
 
     return (
 
-        <div>
+        <div class = "body-problem">
             <div className="problem-card">
 
                 <div class="card text-dark bg-info mb-3">
