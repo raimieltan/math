@@ -6,6 +6,7 @@ exports.up = function(knex) {
             id serial not null primary key,
             content text not null,
             problem_id int not null,
+            is_correct boolean not null,
             foreign key(problem_id)
             References problems(problem_id));
         `
