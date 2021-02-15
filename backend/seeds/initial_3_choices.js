@@ -24,7 +24,7 @@ exports.seed = function (knex) {
         DEFAULT,
         '9',
         1
-      ),
+      )
 
     `)
   };

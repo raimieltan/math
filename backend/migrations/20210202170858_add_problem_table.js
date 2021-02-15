@@ -17,7 +17,6 @@ exports.down = function(knex) {
   return knex.raw(`
 
     DROP TABLE problems;
-    DROP TABLE choices;
 
   `)
 };

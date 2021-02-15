@@ -6,11 +6,5 @@ exports.seed = function (knex) {
       '1 + 5 = 6', 
       '6'
     )
-
-    INSERT INTO choices VALUES(
-      DEFAULT,
-      '6',
-      1
-    )
   `)
 };
