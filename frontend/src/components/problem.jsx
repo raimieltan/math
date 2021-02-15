@@ -28,20 +28,52 @@ export default function Quiz() {
   return (
 
     <div>
-      <h1>Problems</h1>
+      <div class="header">
+        <div>
 
-      {problems.map((p) => {
-        return <div key={p.id}>
+          <a href="/">
+            <div id="logo"></div>
+          </a>
 
-          <ProblemCard 
-           id={p.problem_id}
-           problem={p.problem}
-           solution={p.problem_solution}
-           answer={p.problem_answer}/>
+          <ul>
+            <li class="selected">
+              <a href="/main-page">Home</a>
+            </li>
+            <li>
+              <a href="/profile">Profile</a>
+            </li>
+            <li>
+              <a href="/learn">Learn</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="body-problem">
 
+        <h1>Problems</h1>
+        {problems.map((p) => {
+          return <div key={p.id}>
+
+            <div className="problem-card">
+
+              <div class="card border-info mb-3">
+                <div class="card-header">Question {p.problem_id} </div>
+                <div class="card-body text-infoy">
+                  <p class="card-text">
+                    {p.problem_title}
+
+                    <ProblemCard
+                      id={p.problem_id}
+                      solution={p.problem_solution}
+                      answer={p.problem_answer} />
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        })}
       </div>
 
-      })}
     </div>
 
   )

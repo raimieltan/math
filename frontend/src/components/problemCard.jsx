@@ -4,7 +4,7 @@ export default function Quiz({ id, problem, solution, answer }) {
 
     const [choices, setChoices] = useState([])
     const [results, setResults] = useState(``)
-    const choicesLetters = [1,2,3,4]
+    const choicesLetters = [1, 2, 3, 4]
 
 
     const shuffleArray = (array) => {
@@ -39,11 +39,11 @@ export default function Quiz({ id, problem, solution, answer }) {
 
             shuffleArray(parseRes)
 
-            choicesLetters[0] = {id: parseRes[0].id, name: 'A' , content: parseRes[0].content}
-            choicesLetters[1] = {id: parseRes[1].id, name: 'B' , content: parseRes[1].content}
-            choicesLetters[2] = {id: parseRes[2].id, name: 'C' , content: parseRes[2].content}
-            choicesLetters[3] = {id: parseRes[3].id, name: 'D' , content: parseRes[3].content}
-           
+            choicesLetters[0] = { id: parseRes[0].id, name: 'A)', content: parseRes[0].content }
+            choicesLetters[1] = { id: parseRes[1].id, name: 'B)', content: parseRes[1].content }
+            choicesLetters[2] = { id: parseRes[2].id, name: 'C)', content: parseRes[2].content }
+            choicesLetters[3] = { id: parseRes[3].id, name: 'D)', content: parseRes[3].content }
+
             setChoices(choicesLetters)
 
         } catch (error) {
@@ -62,33 +62,22 @@ export default function Quiz({ id, problem, solution, answer }) {
     return (
 
         <div>
-            <div className="problem-card">
+            <p>{problem}</p>
+            <div id={'quiz' + id}>
+                {choices.map((c) => {
 
-                <div class="card text-dark bg-info mb-3">
-                    <div class="card-header">Question category</div>
-                    <div class="card-body">
-                        <p class="card-text">
-                            <p>{problem}</p>
-                            <div className="resultDiv"><div>
-
-                                {results}
-
-                            </div></div>
-                        </p>
+                    return <div key={c.id}>
+                        <button value={c.content} onClick={(e) => getButtonValue(e)}>{c.name + " " + c.content}</button>
                     </div>
-                </div>
-                <div id={'quiz' + id}>
-                    {choices.map((c) => {
-
-                        return <div key={c.id}>
-                            <button value={c.content} onClick={(e) => getButtonValue(e)}>{c.name + " " + c.content}</button>
-                        </div>
-                    })}
-                </div>
-
+                })}
             </div>
+            <div className="resultDiv">
+                <div>
 
+                    {results}
 
+                </div>
+            </div>
         </div>
 
     )
