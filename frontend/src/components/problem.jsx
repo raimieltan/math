@@ -87,9 +87,8 @@ export default function Quiz() {
 
   return problems.length > 0 ? (
 
-    <div class="header">
 
-
+    <div>
       {showScore ? (
         <div>
           You scored {score} out of {problems.length - 1}
@@ -97,23 +96,24 @@ export default function Quiz() {
       ) : (
 
           <div>
+            <div class="header">
 
-            <a href="/">
-              <div id="logo"></div>
-            </a>
+              <a href="/">
+                <div id="logo"></div>
+              </a>
 
-            <ul>
-              <li class="selected">
-                <a href="/main-page">Home</a>
-              </li>
-              <li>
-                <a href="/profile">Profile</a>
-              </li>
-              <li>
-                <a href="/learn">Learn</a>
-              </li>
-            </ul>
-
+              <ul>
+                <li class="selected">
+                  <a href="/main-page">Home</a>
+                </li>
+                <li>
+                  <a href="/profile">Profile</a>
+                </li>
+                <li>
+                  <a href="/learn">Learn</a>
+                </li>
+              </ul>
+            </div>
             <ProblemCard
               id={problems[currentQuestion].problem_id}
               problem={problems[currentQuestion].problem_title}
@@ -124,8 +124,12 @@ export default function Quiz() {
             <div id={'quiz' + problems[currentQuestion].problem_id}>
               {choices.map((c) => {
 
-                return <div>
-                  <button value={c.content} onClick={() => handleNextOptionClick(c.is_correct)}>{c.name + " " + c.content}</button>
+                return <div class = "choices">
+                  <ul>
+                    <li class="li-choices">
+                      <button  value={c.content} onClick={() => handleNextOptionClick(c.is_correct)}>{c.name + " " + c.content}</button>
+                    </li>
+                  </ul>
                 </div>
               })}
             </div>
