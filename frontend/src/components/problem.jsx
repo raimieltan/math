@@ -45,10 +45,10 @@ export default function Quiz() {
 
       shuffleArray(parseRes)
 
-      choicesLetters[0] = { id: parseRes[0].id, name: 'A', content: parseRes[0].content, is_correct: parseRes[0].is_correct }
-      choicesLetters[1] = { id: parseRes[1].id, name: 'B', content: parseRes[1].content, is_correct: parseRes[1].is_correct }
-      choicesLetters[2] = { id: parseRes[2].id, name: 'C', content: parseRes[2].content, is_correct: parseRes[2].is_correct }
-      choicesLetters[3] = { id: parseRes[3].id, name: 'D', content: parseRes[3].content, is_correct: parseRes[3].is_correct }
+      choicesLetters[0] = { id: parseRes[0].id, name: 'A.) ', content: parseRes[0].content, is_correct: parseRes[0].is_correct }
+      choicesLetters[1] = { id: parseRes[1].id, name: 'B.) ', content: parseRes[1].content, is_correct: parseRes[1].is_correct }
+      choicesLetters[2] = { id: parseRes[2].id, name: 'C.) ', content: parseRes[2].content, is_correct: parseRes[2].is_correct }
+      choicesLetters[3] = { id: parseRes[3].id, name: 'D.) ', content: parseRes[3].content, is_correct: parseRes[3].is_correct }
 
       setChoices(choicesLetters)
       console.log(choices)
@@ -121,7 +121,7 @@ export default function Quiz() {
               answer={problems[currentQuestion].problem_answer}
             />
 
-            <div id={'quiz' + problems[currentQuestion].problem_id}>
+            <div id={'quiz' + problems[currentQuestion].problem_id} className="choices-buttons">
               {choices.map((c) => {
 
                 return <div>
