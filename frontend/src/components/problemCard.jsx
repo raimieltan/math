@@ -1,6 +1,6 @@
 import { Fragment, useState, useEffect } from 'react';
 import './style.css';
-export default function Quiz({ id, problem }) {
+export default function Quiz({ id, problem, solution, answer }) {
 
 
     return (
@@ -12,6 +12,13 @@ export default function Quiz({ id, problem }) {
                     <div class="card-header">Question {id}</div>
                     <div class="card-body">
                         <p>{problem}</p>
+                        <div>
+                            {solution}
+                        </div>
+
+                        <div>
+                            Answer: {answer}
+                        </div>
                     </div>
                 </div>
 

@@ -72,18 +72,21 @@ export default function Quiz() {
       let fillBlanksProblems =
         [
           {
+            id: 1,
             problem: `Use long multiplication to calculate ${variables.variable_x} X ${variables.variable_y}`,
             answer: answer('Multiplication', variables),
             solution: 'Multiply the values.'
           },
 
           {
+            id: 2,
             problem: `What is the difference of ${variables.variable_x} - ${variables.variable_y}`,
             answer: answer('Subtraction', variables),
             solution: 'Subtract the values.'
           },
 
           {
+            id: 3,
             problem: `What is the sum of ${variables.variable_x} and ${variables.variable_y}`,
             answer: answer('Addition', variables),
             solution: 'Add the values.'
@@ -185,30 +188,39 @@ export default function Quiz() {
               </ul>
             </div>
 
-            <ProblemCard
-              id={problems[currentQuestion].problem_id}
-              problem={problems[currentQuestion].problem_title}
-              solution={problems[currentQuestion].problem_solution}
-              answer={problems[currentQuestion].problem_answer}
-            />
+            <div>
+              <ProblemCard
+                id={problems[currentQuestion].problem_id}
+                problem={problems[currentQuestion].problem_title}
+                solution={problems[currentQuestion].problem_solution}
+                answer={problems[currentQuestion].problem_answer}
+              />
 
-            <div id={'quiz' + problems[currentQuestion].problem_id}>
-              {choices.map((c) => {
+              <div id={'quiz' + problems[currentQuestion].problem_id}>
+                {choices.map((c) => {
 
-                return <div class="choices">
-                  <ul>
-                    <li class="li-choices">
-                      <button value={c.content} onClick={() => handleNextOptionClick(c.is_correct)}>{c.name + " " + c.content}</button>
-                    </li>
-                  </ul>
-                </div>
-              })}
+                  return <div class="choices">
+                    <ul>
+                      <li class="li-choices">
+                        <button value={c.content} onClick={() => handleNextOptionClick(c.is_correct)}>{c.name + " " + c.content}</button>
+                      </li>
+                    </ul>
+                  </div>
+                })}
+              </div>
             </div>
 
             <div>
-              {currentProblem.problem} <br />
-              {currentProblem.answer} <br />
-              {currentProblem.solution} <br />
+              <ProblemCard
+                id={currentProblem.id}
+                problem={currentProblem.problem}
+                solution={currentProblem.solution}
+                answer={currentProblem.answer}
+              />
+              <div>
+                  <input id="blankInput"></input>
+                  <button>Submit</button>
+              </div>
             </div>
 
           </div>
