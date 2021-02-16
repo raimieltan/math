@@ -3,7 +3,7 @@ import './style.css';
 import ProblemCard from './problemCard'
 
 export default function Quiz() {
-
+  // variable_x: 56, variable_y: 36
   const [problems, setProblems] = useState([{ problem_id: 1 }]);
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [showScore, setShowScore] = useState(false)
@@ -12,6 +12,13 @@ export default function Quiz() {
   const choicesLetters = [1, 2, 3, 4]
   const [variables, setVariables] = useState({});
   const [currentProblem, setCurrentProblem] = useState({});
+
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
 
   const answer = (type, values) => {
     if (type === 'Multiplication') {
@@ -25,37 +32,9 @@ export default function Quiz() {
     if (type === 'Addition') {
       return values.variable_x + values.variable_y;
     }
-
   }
 
-  let fillBlanksProblems = 
-    [
-      {
-        problem: `Use long multiplication to calculate ${variables.variable_x} X ${variables.variable_y}`,
-        answer: answer('Multiplication', variables),
-        solution: 'Multiply the values.'
-      },
-
-      {
-        problem: `What is the difference of ${variables.variable_x} - ${variables.variable_y}`,
-        answer: answer('Subtraction', variables),
-        solution: 'Subtract the values.'
-      },
-
-      {
-        problem: `What is the sum of ${variables.variable_x} and ${variables.variable_y}`,
-        answer: answer('Addition', variables),
-        solution: 'Add the values.'
-      }
-    ]
-  
-  const shuffleArray = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-  }
-
+  console.log(variables);
 
   const fetchProblems = async () => {
 
@@ -79,16 +58,50 @@ export default function Quiz() {
       //shuffle values
       shuffleArray(parseRes);
       setVariables(parseRes[0]);
-      
-      //shuffle questions
-      shuffleArray(fillBlanksProblems);
-      setCurrentProblem(fillBlanksProblems[0]);
 
     } catch (error) {
       console.error(error.message);
     }
 
   }
+
+  const fetchQuestions = () => {
+
+    try {
+
+      let fillBlanksProblems =
+        [
+          {
+            problem: `Use long multiplication to calculate ${variables.variable_x} X ${variables.variable_y}`,
+            answer: answer('Multiplication', variables),
+            solution: 'Multiply the values.'
+          },
+
+          {
+            problem: `What is the difference of ${variables.variable_x} - ${variables.variable_y}`,
+            answer: answer('Subtraction', variables),
+            solution: 'Subtract the values.'
+          },
+
+          {
+            problem: `What is the sum of ${variables.variable_x} and ${variables.variable_y}`,
+            answer: answer('Addition', variables),
+            solution: 'Add the values.'
+          }
+        ]
+
+      // shuffle questions
+      shuffleArray(fillBlanksProblems);
+      setCurrentProblem(fillBlanksProblems[0]);
+    
+    } catch (error) {
+      console.error("ERROR:", error.message)
+    }
+  }
+
+  useEffect(() => {
+    fetchQuestions();
+  }, [variables])
 
   useEffect(() => {
     fetchValues();
@@ -145,7 +158,6 @@ export default function Quiz() {
 
   return problems.length > 0 ? (
 
-
     <div>
       {showScore ? (
         <div>
@@ -173,30 +185,30 @@ export default function Quiz() {
               </ul>
             </div>
 
-            {/* <ProblemCard
+            <ProblemCard
               id={problems[currentQuestion].problem_id}
               problem={problems[currentQuestion].problem_title}
               solution={problems[currentQuestion].problem_solution}
               answer={problems[currentQuestion].problem_answer}
-            /> */}
+            />
 
-            {/* <div id={'quiz' + problems[currentQuestion].problem_id}>
+            <div id={'quiz' + problems[currentQuestion].problem_id}>
               {choices.map((c) => {
 
-                return <div class = "choices">
+                return <div class="choices">
                   <ul>
                     <li class="li-choices">
-                      <button  value={c.content} onClick={() => handleNextOptionClick(c.is_correct)}>{c.name + " " + c.content}</button>
+                      <button value={c.content} onClick={() => handleNextOptionClick(c.is_correct)}>{c.name + " " + c.content}</button>
                     </li>
                   </ul>
                 </div>
               })}
-            </div> */}
+            </div>
 
             <div>
-              {currentProblem.problem} <br/>
-              {currentProblem.answer} <br/>
-              {currentProblem.solution} <br/>
+              {currentProblem.problem} <br />
+              {currentProblem.answer} <br />
+              {currentProblem.solution} <br />
             </div>
 
           </div>
