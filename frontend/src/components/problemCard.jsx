@@ -13,7 +13,7 @@ export default function Quiz({ id, problem, solution, answer }) {
                     <div class="card-body">
                         <p>{problem}</p>
                         <div>
-                            {solution}
+                            Solution: {solution}
                         </div>
 
                         <div>

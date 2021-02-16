@@ -158,6 +158,10 @@ export default function Quiz() {
     }
   }
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    
+  }
 
   return problems.length > 0 ? (
 
@@ -218,8 +222,10 @@ export default function Quiz() {
                 answer={currentProblem.answer}
               />
               <div>
-                  <input id="blankInput"></input>
-                  <button>Submit</button>
+                  <form id="fillBlanks" onSubmit={handleSubmit}>
+                    <input id="blankInput"></input>
+                    <button type="form">Submit</button>
+                  </form>
               </div>
             </div>
 
