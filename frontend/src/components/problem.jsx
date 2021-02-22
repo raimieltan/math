@@ -17,6 +17,7 @@ export default function Quiz() {
     try {
       const response = await fetch("http://localhost:8000/problems");
       const parseRes = await response.json()
+      shuffleArray(parseRes)
       setProblems(parseRes);
 
     } catch (error) {
@@ -76,7 +77,7 @@ export default function Quiz() {
     }
     const nextQuestion = currentQuestion + 1
 
-    if (nextQuestion < problems.length - 1) {
+    if (nextQuestion < problems.length) {
       setCurrentQuestion(nextQuestion)
     }
     else {
@@ -91,7 +92,25 @@ export default function Quiz() {
     <div>
       {showScore ? (
         <div>
-          You scored {score} out of {problems.length - 1}
+          <div class="header">
+
+            <a href="/">
+              <div id="logo"></div>
+            </a>
+
+            <ul>
+              <li class="selected">
+                <a href="/main-page">Home</a>
+              </li>
+              <li>
+                <a href="/profile">Profile</a>
+              </li>
+              <li>
+                <a href="/learn">Learn</a>
+              </li>
+            </ul>
+          </div>
+          <h1>You scored {score} out of {problems.length}</h1>
         </div>
       ) : (
 
@@ -124,10 +143,10 @@ export default function Quiz() {
             <div id={'quiz' + problems[currentQuestion].problem_id} className="choices-buttons">
               {choices.map((c) => {
 
-                return <div class = "choices">
+                return <div class="choices">
                   <ul>
                     <li class="li-choices">
-                      <button  value={c.content} onClick={() => handleNextOptionClick(c.is_correct)}>{c.name + " " + c.content}</button>
+                      <button value={c.content} onClick={() => handleNextOptionClick(c.is_correct)}>{c.name + " " + c.content}</button>
                     </li>
                   </ul>
                 </div>

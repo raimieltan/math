@@ -9,7 +9,7 @@ export default function Quiz({id, problem }) {
             <div className="problem-card">
 
                 <div class="card text-dark bg-info mb-3">
-                <div class="card-header">Question {id}</div>
+                <div class="card-header">Basic Questions</div>
                     <div class="card-body">
                             <p>{problem}</p>
                
