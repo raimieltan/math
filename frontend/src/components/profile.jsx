@@ -38,19 +38,16 @@ export default function Profile({ setAuth }) {
     <Fragment>
       <div class="header">
         <div>
-          <a href="/">
+          <a href="/main-page">
             <div id="logo"></div>
           </a>
 
           <ul>
             <li class="selected">
-              <a href="/">Home</a>
+              <a href="/main-page">Home</a>
             </li>
             <li>
               <a href="/about">About</a>
-            </li>
-            <li>
-              <a href="/main-page">Main</a>
             </li>
             <li>
               <button onClick={(e) => {

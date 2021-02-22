@@ -28,7 +28,7 @@ function Homepage() {
             </div>
             <div class="footer">
                 <div>
-                    <p class="footnote">&#169; Copyright &#169; 2011. Company name. All rights reserved</p>
+                    <p class="footnote">&#169; Copyright &#169; 2021 by Sean, Wex and Kenni. MATHapp. All rights reserved</p>
                 </div>
             </div>
 

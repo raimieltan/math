@@ -8,16 +8,16 @@ export default function Quiz({ id, problem, solution, answer }) {
         <div class="body-problem">
             <div className="problem-card">
 
-                <div class="card text-dark bg-info mb-3">
+                <div class="card border-info mb-3">
                     <div class="card-header">Question {id}</div>
                     <div class="card-body">
                         <p>{problem}</p>
                         <div>
-                            Solution: {solution}
+                            {/* Solution: {solution} */}
                         </div>
 
                         <div>
-                            Answer: {answer}
+                            {/* Answer: {answer} */}
                         </div>
                     </div>
                 </div>

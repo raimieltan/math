@@ -192,7 +192,7 @@ export default function Quiz() {
               </ul>
             </div>
 
-            <div>
+            {/* <div>
               <ProblemCard
                 id={problems[currentQuestion].problem_id}
                 problem={problems[currentQuestion].problem_title}
@@ -212,7 +212,7 @@ export default function Quiz() {
                   </div>
                 })}
               </div>
-            </div>
+            </div> */}
 
             <div>
               <ProblemCard
