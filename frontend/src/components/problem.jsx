@@ -12,6 +12,9 @@ export default function Quiz() {
   const choicesLetters = [1, 2, 3, 4]
   const [variables, setVariables] = useState({});
   const [currentProblem, setCurrentProblem] = useState({});
+  const [blankInput, setBlankInput] = useState();
+  const [showSolution, setShowSolution] = useState(false);
+  const [correct, setCorrect] = useState();
 
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -96,7 +99,7 @@ export default function Quiz() {
       // shuffle questions
       shuffleArray(fillBlanksProblems);
       setCurrentProblem(fillBlanksProblems[0]);
-    
+
     } catch (error) {
       console.error("ERROR:", error.message)
     }
@@ -136,6 +139,11 @@ export default function Quiz() {
 
   }
 
+  const onChange = (event) => {
+    event.preventDefault();
+    setBlankInput(event.target.value);
+  }
+
   useEffect(() => {
     fetchChoices(problems[currentQuestion].problem_id)
   }, [currentQuestion])
@@ -158,9 +166,16 @@ export default function Quiz() {
     }
   }
 
-  const handleSubmit = (event) => {
+  const handleAnswerSubmit = (event) => {
     event.preventDefault();
-    
+
+    if (blankInput == currentProblem.answer) {
+      setCorrect(true);
+    } else {
+      setCorrect(false);
+    }
+    setBlankInput(blankInput);
+    setShowSolution(true);
   }
 
   return problems.length > 0 ? (
@@ -214,20 +229,59 @@ export default function Quiz() {
               </div>
             </div> */}
 
-            <div>
-              <ProblemCard
-                id={currentProblem.id}
-                problem={currentProblem.problem}
-                solution={currentProblem.solution}
-                answer={currentProblem.answer}
-              />
-              <div>
-                  <form id="fillBlanks" onSubmit={handleSubmit}>
-                    <input id="blankInput"></input>
-                    <button type="form">Submit</button>
-                  </form>
-              </div>
-            </div>
+            { showSolution
+              ?
+                (
+                  <div>
+                    {correct 
+                      ? 
+                        (
+                          <div>
+                            <p> 
+                              You got the correct answer: <b>{currentProblem.answer}</b>
+                              <br/> 
+                              Congratulations!
+                            </p>
+                            <p> Solution: {currentProblem.solution} </p>
+                          </div>
+                        )
+                      :
+                        (
+                          <div>
+                            <p> Better luck next time. 
+                              The correct answer is: <b>{currentProblem.answer}</b>
+                            </p>
+                            <p> Solution: {currentProblem.solution} </p>
+                          </div>
+                        )
+                    }
+                  </div>
+                )
+              : 
+                (
+                  <div>
+                    <ProblemCard
+                      id={currentProblem.id}
+                      problem={currentProblem.problem}
+                      solution={currentProblem.solution}
+                      answer={currentProblem.answer}
+                    />
+                    <div>
+                      <form id="fillBlanks" onSubmit={handleAnswerSubmit}>
+                        <input
+                          id="blankInput"
+                          value={blankInput}
+                          onChange={onChange}
+                          required
+                        >
+            
+                        </input>
+                        <button type="form">Submit</button>
+                      </form>
+                    </div>
+                  </div>
+                )
+            }
 
           </div>
         )}
