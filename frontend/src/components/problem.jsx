@@ -3,14 +3,36 @@ import './style.css';
 import ProblemCard from './problemCard'
 
 export default function Quiz() {
-
-  const [problems, setProblems] = useState([{ problem_id: 1 }]);
-  const [currentQuestion, setCurrentQuestion] = useState(0)
+  // variable_x: 56, variable_y: 36
+  const [problems, setProblems] = useState([]);
   const [showScore, setShowScore] = useState(false)
   const [score, setScore] = useState(0)
-
   const [choices, setChoices] = useState([])
   const choicesLetters = [1, 2, 3, 4]
+  const [variables, setVariables] = useState({});
+  const [currentProblem, setCurrentProblem] = useState({});
+
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
+  const answer = (type, values) => {
+    if (type === 'Multiplication') {
+      return values.variable_x * values.variable_y;
+    }
+
+    if (type === 'Subtraction') {
+      return values.variable_x - values.variable_y;
+    }
+
+    if (type === 'Addition') {
+      return values.variable_x + values.variable_y;
+    }
+  }
+
 
   const fetchProblems = async () => {
 
@@ -19,77 +41,98 @@ export default function Quiz() {
       const parseRes = await response.json()
       shuffleArray(parseRes)
       setProblems(parseRes);
+      console.log(problems)
 
     } catch (error) {
       console.error("Error encountered on the frontend. ERROR: ", error.message);
     }
   }
 
-
-  useEffect(() => {
-    fetchProblems();
-  }, []);
-
-
-  const shuffleArray = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-  }
-  const fetchChoices = async (id) => {
+  const fetchValues = async () => {
 
     try {
 
-      const response = await fetch(`http://localhost:8000/choices/${id}`)
+      const response = await fetch("http://localhost:8000/variables")
       const parseRes = await response.json()
 
-      shuffleArray(parseRes)
-
-      choicesLetters[0] = { id: parseRes[0].id, name: 'A.) ', content: parseRes[0].content, is_correct: parseRes[0].is_correct }
-      choicesLetters[1] = { id: parseRes[1].id, name: 'B.) ', content: parseRes[1].content, is_correct: parseRes[1].is_correct }
-      choicesLetters[2] = { id: parseRes[2].id, name: 'C.) ', content: parseRes[2].content, is_correct: parseRes[2].is_correct }
-      choicesLetters[3] = { id: parseRes[3].id, name: 'D.) ', content: parseRes[3].content, is_correct: parseRes[3].is_correct }
-
-      setChoices(choicesLetters)
-      console.log(choices)
+      //shuffle values
+      shuffleArray(parseRes);
+      setVariables(parseRes[0]);
 
     } catch (error) {
-      console.error(error.message)
-
+      console.error(error.message);
     }
+
   }
 
+  const fetchQuestions = () => {
+
+    try {
+
+      let fillBlanksProblems =
+        [
+          {
+            id: 1,
+            problem: `Use long multiplication to calculate ${variables.variable_x} X ${variables.variable_y}`,
+            answer: eval("variables.variable_x * variables.variable_y"),
+            solution: 'Multiply the values.'
+          },
+
+          {
+            id: 2,
+            problem: `What is the difference of ${variables.variable_x} - ${variables.variable_y}`,
+            answer: eval("variables.variable_x - variables.variable_y"),
+            solution: 'Subtract the values.'
+          },
+
+          {
+            id: 3,
+            problem: `What is the sum of ${variables.variable_x} and ${variables.variable_y}`,
+            answer: eval("variables.variable_x + variables.variable_y"),
+            solution: 'Add the values.'
+          }
+        ]
+
+      // shuffle questions
+      shuffleArray(fillBlanksProblems);
+      setCurrentProblem(fillBlanksProblems[0]);
+
+    } catch (error) {
+      console.error("ERROR:", error.message)
+    }
+  }
 
   useEffect(() => {
-    fetchChoices(problems[currentQuestion].problem_id)
+    fetchQuestions();
+  }, [variables])
+
+  useEffect(() => {
+    fetchValues();
+    fetchProblems();
+
+  }, []);
 
 
-  }, [currentQuestion])
 
+  const addScore = () => {
+    setScore(score + 1)
 
-  const handleNextOptionClick = (isCorrect) => {
-    if (isCorrect) {
-      setScore(score + 1)
-    }
-    else {
-      console.log(isCorrect)
-    }
-    const nextQuestion = currentQuestion + 1
-
-    if (nextQuestion < problems.length) {
-      setCurrentQuestion(nextQuestion)
-    }
-    else {
-      setShowScore(true)
-    }
   }
 
+  const submitTest = () => {
+    setShowScore(true)
+  }
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+  }
 
   return problems.length > 0 ? (
 
-
     <div>
+
       {showScore ? (
         <div>
           <div class="header">
@@ -110,7 +153,7 @@ export default function Quiz() {
               </li>
             </ul>
           </div>
-          <h1>You scored {score} out of {problems.length}</h1>
+          <h1>Your score is {score} </h1>
         </div>
       ) : (
 
@@ -133,30 +176,70 @@ export default function Quiz() {
                 </li>
               </ul>
             </div>
-            <ProblemCard
-              id={problems[currentQuestion].problem_id}
-              problem={problems[currentQuestion].problem_title}
-              solution={problems[currentQuestion].problem_solution}
-              answer={problems[currentQuestion].problem_answer}
-            />
 
-            <div id={'quiz' + problems[currentQuestion].problem_id} className="choices-buttons">
-              {choices.map((c) => {
+            <div>
 
-                return <div class="choices">
-                  <ul>
-                    <li class="li-choices">
-                      <button value={c.content} onClick={() => handleNextOptionClick(c.is_correct)}>{c.name + " " + c.content}</button>
-                    </li>
-                  </ul>
+              <div id="carouselExampleControls" class="carousel slide" data-interval="false">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <ProblemCard
+                      id={currentProblem.id}
+                      problem={currentProblem.problem}
+                      solution={currentProblem.solution}
+                      answer={currentProblem.answer}
+                      addScore={addScore}
+                      index={problems.length}
+                      formula={true}
+                    />
+                  </div>
+                  {
+                    problems.map((problem) => {
+                      return <div class="carousel-item">
+                        <ProblemCard
+                          id={problem.problem_id}
+                          problem={problem.problem_title}
+                          solution={problem.problem_solution}
+                          answer={problem.problem_answer}
+                          addScore={addScore}
+                          index={problems.indexOf(problem)}
+                          formula={false}
+                        />
+                      </div>
+
+                    })
+                  }
+
                 </div>
-              })}
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                  
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+
+
+
+
             </div>
 
+            <div>
 
+              <div>
+              </div>
+            </div>
+
+            <button onClick={() => { submitTest() }}>Submit</button>
           </div>
         )}
+
     </div>
+
+
 
   ) : (
       <h1>Loading..</h1>

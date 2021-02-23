@@ -13,6 +13,7 @@ app.use('/problems', require("./routes/problems.js"))
 app.use('/profile', require("./routes/profile.js"))
 app.use("/verify", require("./routes/verify.js"))
 app.use("/choices", require("./routes/choices.js"))
+app.use('/variables', require("./routes/variables.js"))
 
 const PORT = 8000
 
