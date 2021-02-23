@@ -109,10 +109,6 @@ export default function Quiz({ id, problem, solution, answer, addScore, index, f
                                 </div>
                             )}
 
-
-
-
-
                     </div>
                 </div>
 

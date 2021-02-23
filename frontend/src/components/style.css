@@ -137,14 +137,14 @@
 	}
 
 	.card{
-		width: 80%;
+		width: 100%;
 		background-color: rgb(194, 213, 224);
 	}
 	.problem-card{
 		display: block;
 		margin-top: 5%;
 		margin-left: auto;
-		margin-right: auto;
+		margin-right: auto;	
 		width: 50%;
 	}
 	.body-problem{
@@ -163,10 +163,10 @@
 	}
 
 	.choices ul{
-		margin-top: -8%;
-		margin-left: 33%;
 		list-style:none;
-		float:unset;
+		/* float:unset; */
+		margin-left: 10%;
+		margin-right: 10%;	
 
 	}
 	.choices ul li{
@@ -176,6 +176,43 @@
 	}
 	.choices ul li a:hover{
 		color:#9bc3c4;
+	}
+
+	
+	.carousel-control-prev-icon,
+	.carousel-control-next-icon {
+	  height: 70px;
+	  width: 70px;
+	  outline: black;
+	  background-size: 100%, 100%;
+	  border-radius: 50%;
+	  border: 1px solid black;
+	  background-image: none;
+	}
+	.carousel-control-next-icon:after
+	{
+	content: '>';
+	font-size: 45px;
+	color: red;
+	align-content: center;
+	}
+	
+	.carousel-control-prev-icon:after {
+	content: '<';
+	font-size: 45px;
+	color: red;
+	align-content: center;
+
+	}
+	.submit-button{
+		background-color:#ffffff;
+		margin: -20px;
+		cursor:pointer;
+		color:#000000;
+		font-size:20px;
+		font-weight:bold;
+		padding:5px 50px;
+
 	}
 }
 
@@ -203,34 +240,3 @@
 
 }
 
-.choices-buttons{
-	margin-left: auto;
-	margin-right: auto;
-	display: flex;
-	flex: 1;
-	width: 60%;
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  height: 100px;
-  width: 100px;
-  outline: black;
-  background-size: 100%, 100%;
-  border-radius: 50%;
-  border: 1px solid black;
-  background-image: none;
-}
-
-.carousel-control-next-icon:after
-{
-  content: '>';
-  font-size: 55px;
-  color: red;
-}
-
-.carousel-control-prev-icon:after {
-  content: '<';
-  font-size: 55px;
-  color: red;
-}

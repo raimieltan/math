@@ -214,29 +214,21 @@ export default function Quiz() {
 
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                  
+
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                   <span class="sr-only">Previous</span>
 
                 </a>
                 <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="carousel-control-next-icon" aria-hidden="true">                </span> 
                   <span class="sr-only">Next</span>
                 </a>
               </div>
-
-
-
-
             </div>
 
-            <div>
-
-              <div>
-              </div>
+            <div >
+              <button class = "submit-button" onClick={() => { submitTest() }}>Submit Quiz</button>
             </div>
-
-            <button onClick={() => { submitTest() }}>Submit</button>
           </div>
         )}
 
