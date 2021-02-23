@@ -11,6 +11,9 @@ export default function Quiz() {
   const choicesLetters = [1, 2, 3, 4]
   const [variables, setVariables] = useState({});
   const [currentProblem, setCurrentProblem] = useState({});
+  const [blankInput, setBlankInput] = useState();
+  const [showSolution, setShowSolution] = useState(false);
+  const [correct, setCorrect] = useState();
 
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
