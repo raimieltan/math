@@ -4,7 +4,7 @@ const createProblem = () => {
   
   const [variables, setVariables] = useState([]);
   const [multipleChoice, setMultipleChoices] = useState([]);
-  const [choice, setChoice] = useState([]);
+  const [choice, setChoice] = useState();
   const [inputs, seInputs] = useState({
     question: "",
     formula: ""
@@ -12,8 +12,7 @@ const createProblem = () => {
 
   const addChoice = (event) => {
     event.preventDefault();
-
-    setChoices()
+    setMultipleChoice(choices => choices.concat({ choice }))
   }
 
   return (
