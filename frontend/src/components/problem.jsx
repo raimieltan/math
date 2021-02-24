@@ -22,19 +22,19 @@ export default function Quiz() {
     }
   }
 
-  const answer = (type, values) => {
-    if (type === 'Multiplication') {
-      return values.variable_x * values.variable_y;
-    }
+  // const answer = (type, values) => {
+  //   if (type === 'Multiplication') {
+  //     return values.variable_x * values.variable_y;
+  //   }
 
-    if (type === 'Subtraction') {
-      return values.variable_x - values.variable_y;
-    }
+  //   if (type === 'Subtraction') {
+  //     return values.variable_x - values.variable_y;
+  //   }
 
-    if (type === 'Addition') {
-      return values.variable_x + values.variable_y;
-    }
-  }
+  //   if (type === 'Addition') {
+  //     return values.variable_x + values.variable_y;
+  //   }
+  // }
 
 
   const fetchProblems = async () => {
@@ -124,12 +124,6 @@ export default function Quiz() {
 
   const submitTest = () => {
     setShowScore(true)
-  }
-
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
   }
 
   return problems.length > 0 ? (

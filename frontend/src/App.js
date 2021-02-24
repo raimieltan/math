@@ -14,6 +14,7 @@ import Profile from './components/profile';
 import SignUp from './components/signup';
 import Problem from './components/problem';
 import MainPage from './components/main-page'
+import CreateProblem from './components/createProblem'
 
 function App() {
 
@@ -56,6 +57,8 @@ function App() {
             <Route exact path="/quiz" component={() => <Problem />} />
             <Route exact path="/about" component={() => <About />} />
             <Route exact path="/profile" component={() => <Profile />} /> {/*delete later*/}
+
+            <Route exact path="/create-problem" component={ () => <CreateProblem /> } />
           </Switch>
         </div>
       </Router>
