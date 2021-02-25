@@ -34,7 +34,30 @@ export default function CreateProblem() {
       })
 
       const parseRes = await response.json();
-      console.log(parseRes);
+      const problemId = parseRes.rows[0].id;
+
+
+      for (const addedVariables of variables) {
+        
+        try {
+          
+          const body = { variable: addedVariables.variable, min: addedVariables.min, max: addedVariables.max };
+
+          const response = await fetch(`http://localhost:8000/variables/assign/${problemId}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+          })
+
+          const parseRes = await response.json();
+
+        } catch (error) {
+          console.log("ERROR:", error.message);
+        }
+
+      }
+
+      window.alert("Problem Added Successfully!")
 
     } catch (error) {
       console.log("ERROR:", error.message);
@@ -65,9 +88,9 @@ export default function CreateProblem() {
   const addChoices = (e) => {
     e.preventDefault();
   }
-  
+
   useEffect(() => {
-    
+
   })
 
   return (
@@ -77,10 +100,10 @@ export default function CreateProblem() {
         <option value="0">Multiple Choice</option>
         <option value="1">Fill in the Blanks</option>
       </select> */}
-      
+
       <div>
         <form onSubmit={fillInTheBlankSubmit}>
-          
+
           <textarea
             placeholder="Enter Question Here"
             id="question"
@@ -100,22 +123,22 @@ export default function CreateProblem() {
           />
 
           <span id="variable-inputs">
-            <input 
-              id="variableName" 
+            <input
+              id="variableName"
               value={variableName}
               placeholder="Variable Name"
               onChange={handleInputs}
             />
-            <input 
-              type="number" 
-              id="variableMax" 
+            <input
+              type="number"
+              id="variableMax"
               value={variableMax}
               placeholder="Max Value"
               onChange={handleInputs}
             />
-            <input 
-              type="number" 
-              id="variableMin" 
+            <input
+              type="number"
+              id="variableMin"
               value={variableMin}
               placeholder="Min Value"
               onChange={handleInputs}
@@ -125,21 +148,21 @@ export default function CreateProblem() {
           <div>
             <button id="add-variable" onClick={addVariable}>Add Variable</button>
           </div>
-          
+
           <div class="container" id="variable-container">
-            {variables.length !== 0 
-              ? 
-                variables.map(variable =>
-                  <div>
-                    <div id="variable-box">
-                      Variable Name: {variable.variable}<br/>
-                      Variable Min: {variable.min}<br/>
-                      Variable Max: {variable.max}<br/>
-                    </div>
+            {variables.length !== 0
+              ?
+              variables.map(variable =>
+                <div>
+                  <div id="variable-box">
+                    Variable Name: {variable.variable}<br />
+                      Variable Min: {variable.min}<br />
+                      Variable Max: {variable.max}<br />
                   </div>
-                )
+                </div>
+              )
               :
-                ""
+              ""
             }
           </div>
 

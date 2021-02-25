@@ -20,19 +20,19 @@ const pool = require("../pool.js")
 // })
 
 //insert variables
-router.post('/variable/:problemId', async (req, res) => {
+router.post('/assign/:problemId', async (req, res) => {
   
   try {
 
     const problemId = req.params.problemId;
     const { variable, min, max } = req.body;
 
-    const sqlQuery = 'INSERT INTO variable VALUES (DEFAULT, $1, $2, $3, $4, $5) RETURNING *'
+    const sqlQuery = 'INSERT INTO variable VALUES (DEFAULT, $1, $2, $3, $4) RETURNING *'
     const addVariable = await pool.query(sqlQuery, [problemId, variable, max, min])
-    response.json(addVariable);
+    res.json(addVariable);
     
   } catch (error) {
-    
+    console.log("ERROR:", error.message);
   }
   
 })
