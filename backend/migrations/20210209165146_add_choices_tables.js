@@ -1,4 +1,3 @@
-
 exports.up = function(knex) {
     return knex.raw(
         `
@@ -8,7 +7,7 @@ exports.up = function(knex) {
             problem_id int not null,
             is_correct boolean not null,
             foreign key(problem_id)
-            References problems(problem_id));
+            References problem(id));
         `
     )
   };

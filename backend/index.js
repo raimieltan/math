@@ -14,7 +14,6 @@ app.use('/profile', require("./routes/profile.js"))
 app.use("/verify", require("./routes/verify.js"))
 app.use("/choices", require("./routes/choices.js"))
 app.use('/variables', require("./routes/variables.js"))
-app.use('/create', require("./routes/problem.js"))
 
 const PORT = 8000
 

@@ -11,5 +11,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.raw('DROP TABLE assign_multiple_choice')
+  return knex.raw('DROP TABLE assign_multiple_choices')
 };

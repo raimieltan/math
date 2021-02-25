@@ -22,7 +22,7 @@ router.get('/', async (request, response) => {
 
   try {
     
-    const fetchProblems = await pool.query('SELECT * FROM problems');
+    const fetchProblems = await pool.query('SELECT * FROM problem');
     response.json(fetchProblems.rows);
 
   } catch (error) {
@@ -34,14 +34,17 @@ router.get('/', async (request, response) => {
 })
 
 //create problem
-router.post('/problem', async (request, response) => {
+router.post('/create', async (request, response) => {
 
   try {
     
     const { question, formula } = request.body;
-    const newProblem = await pool.query('INSERT INTO problem VALUES ()')
-  } catch (error) {
+
+    const newProblem = await pool.query('INSERT INTO problem VALUES (DEFAULT, $1, $2) RETURNING *', [question, formula]);
+    response.json(newProblem);
     
+  } catch (error) {
+    console.log("ERROR:", error.message);
   }
 }) 
 

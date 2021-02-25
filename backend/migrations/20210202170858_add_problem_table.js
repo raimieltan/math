@@ -13,9 +13,7 @@ exports.up = function(knex) {
       CREATE TABLE problem(
         id SERIAL NOT NULL PRIMARY KEY,
         problem_question TEXT NOT NULL,
-        problem_formula TEXT NOT NULL,
-        variable_min INTEGER NOT NULL,
-        variable_max INTEGER NOT NULL
+        problem_formula TEXT NOT NULL
       )
     `
   )

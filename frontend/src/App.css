@@ -2,3 +2,15 @@
   margin: 0;
   text-align: center;
 }
+
+#variable-container {
+  padding: 10px;
+  margin: 30px;
+  border: 2px solid red;
+}
+
+#variable-box {
+  padding: 10px;
+  margin: 10px;
+  border: 2px solid blue;
+}
