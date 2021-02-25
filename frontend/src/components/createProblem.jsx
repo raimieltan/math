@@ -1,68 +1,81 @@
-import { Fragment, React, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 
-const createProblem = () => {
-  
-  const [variables, setVariables] = useState([]);
-  const [multipleChoice, setMultipleChoices] = useState([]);
-  const [choice, setChoice] = useState();
-  const [inputs, seInputs] = useState({
+export default function CreateProblem() {
+
+  // const [variables, setVariables] = useState([]);
+  // const [multipleChoice, setMultipleChoices] = useState([]);
+  const [type, setType] = useState(1);
+  // const [choice, setChoice] = useState();
+
+  const [inputs, setInputs] = useState({
     question: "",
     formula: ""
   });
 
-  const addChoice = (event) => {
-    event.preventDefault();
-    setMultipleChoice(choices => choices.concat({ choice }))
+  const { question, formula } = inputs;
+
+  const handleType = (e) => {
+    e.preventDefault();
+    const id = e.target.value;
+    setType(id);
   }
+
+  const handleInputs = (e) => {
+    e.preventDefault();
+    setInputs({
+      question,
+      formula,
+      [e.target.id]: e.target.value
+    })
+  }
+  
+  useEffect(() => {
+    
+  }, [type])
 
   return (
     <Fragment>
 
-      <form>
-
-        <select id="problemType" class="form form-select" onChange={}>
-          <option value="multiple-choice">Multiple Choice</option>
-          <option value="fill-in-the-blanks">Fill in the Blanks</option>
-        </select>
-
-        <div>
-          <input placeholder="Enter Question Here"></input>
-          <input placeholder="Enter Formula Here"></input>
-          <input 
-            id="variableCount" 
-            type="number" 
-            value={} 
-            onChange={}
-            placeholder="How many variables?"
-          > 
-          </input>
-          <input>
-
-          </input>
-        </div>
-
-        <div>
-          <input placeholder="Enter Question Here"/>
-          <input placeholder="Enter Formula Here"/>
-          
-          <input
-            id="choice"
-            value={}
-            onChange={}
-            placeholder="Add choices"
+      <select id="problemType" class="form form-select" onChange={handleType}>
+        <option value="0">Multiple Choice</option>
+        <option value="1">Fill in the Blanks</option>
+      </select>
+      
+      <div>
+        <form>
+          <textarea
+            placeholder="Enter Question Here"
+            id="question"
+            value={question}
+            rows="2"
+            cols="10"
+            class="form-control"
+            onChange={handleInputs}
           />
+          <input
+            placeholder="Enter Formula Here"
+            id="formula"
+            value={formula}
+            class="form-control"
+            onChange={handleInputs}
+          />
+        </form>
+      </div>
 
-          <button type="button" onClick={addChoice}>Add choices</button>
+      {/* 
+      <div>
+        <form>
+          <input placeholder="Enter Question Here" />
+          <input placeholder="Enter Formula Here" />
+
+          <button type="button" onClick={addChoice}>Add choice</button>
 
           <div class="choiceContainter">
-            {}
+            { }
           </div>
-        </div>
-      </form>
-
+        </form>
+      </div> */}
 
     </Fragment>
   )
 }
-
-export default createProblem;
