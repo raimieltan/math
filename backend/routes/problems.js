@@ -18,7 +18,7 @@ const pool = require("../pool.js")
 // })
 
 //fetch problems
-router.get('/', async (request, response) => {
+router.get('/fetch', async (request, response) => {
 
   try {
     
