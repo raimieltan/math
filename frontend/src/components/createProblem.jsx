@@ -7,12 +7,13 @@ export default function CreateProblem() {
   const [inputs, setInputs] = useState({
     question: "",
     formula: "",
+    choiceCount: "",
     variableName: "",
     variableMin: "",
     variableMax: ""
   });
 
-  const { question, formula, variableName, variableMin, variableMax } = inputs;
+  const { question, formula, choiceCount, variableName, variableMin, variableMax } = inputs;
 
   // const handleType = (e) => {
   //   e.preventDefault();
@@ -23,7 +24,7 @@ export default function CreateProblem() {
   const fillInTheBlankSubmit = async (e) => {
     e.preventDefault();
 
-    const body = { question, formula };
+    const body = { question, formula, choiceCount: null, type: 'fillInTheBlanks' };
 
     try {
 
@@ -64,8 +65,48 @@ export default function CreateProblem() {
     }
   }
 
-  const multipleChoiceSubmit = (e) => {
+  const multipleChoiceSubmit = async (e) => {
     e.preventDefault();
+
+    const body = { question, formula, choiceCount, type: 'multipleChoice' };
+
+    try {
+
+      const response = await fetch("http://localhost:8000/problems/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      })
+
+      const parseRes = await response.json();
+      const problemId = parseRes.rows[0].id;
+
+
+      for (const addedVariables of variables) {
+
+        try {
+
+          const body = { variable: addedVariables.variable, min: addedVariables.min, max: addedVariables.max };
+
+          const response = await fetch(`http://localhost:8000/variables/assign/${problemId}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+          })
+
+          const parseRes = await response.json();
+
+        } catch (error) {
+          console.log("ERROR:", error.message);
+        }
+
+      }
+
+      window.alert("Problem Added Successfully!")
+
+    } catch (error) {
+      console.log("ERROR:", error.message);
+    }
   }
 
   const handleInputs = (e) => {
@@ -83,10 +124,6 @@ export default function CreateProblem() {
   const addVariable = (e) => {
     e.preventDefault();
     setVariables(variable => variable.concat({ variable: variableName, min: variableMin, max: variableMax }))
-  }
-
-  const addChoices = (e) => {
-    e.preventDefault();
   }
 
   useEffect(() => {
@@ -230,11 +267,16 @@ export default function CreateProblem() {
               ""
             }
           </div>
-          
 
-          <button id="add-choices" onClick={addChoices}>Add Choices</button>
-
-          <div class="container" id="choice-container" />
+          <div>
+            <input
+              type="number"
+              id="choiceCount"
+              value={choiceCount}
+              placeholder="Number of Choices"
+              onChange={handleInputs}
+            />
+          </div>
 
           <button id="form">Add Problem</button>
 

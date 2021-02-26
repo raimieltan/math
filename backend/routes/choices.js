@@ -19,25 +19,25 @@ router.get('/fetch/:id', async (request, response) => {
 })
 
 //assign choices
-router.post('/assign/:id', async (req, res) => {
+// router.post('/assign/:id', async (req, res) => {
 
-  try {
+//   try {
 
-    const sqlQuery = 'INSERT INTO choices VALUES (DEFAULT, $1, $2)';
+//     const sqlQuery = 'INSERT INTO choices VALUES (DEFAULT, $1, $2)';
 
-    const { id } = request.params;
-    const { choice } = request.body;
-    const newChoice = await pool.query(sqlQuery, [id, choice]);
-    response.json(newChoice.rows);
+//     const { id } = request.params;
+//     const { choice } = request.body;
+//     const newChoice = await pool.query(sqlQuery, [id, choice]);
+//     response.json(newChoice.rows);
 
-  } catch (error) {
+//   } catch (error) {
 
-    console.log(error.message);
-    response.status(500).send("Error Assigning Choices.");
+//     console.log(error.message);
+//     response.status(500).send("Error Assigning Choices.");
 
-  }
+//   }
 
-})
+// })
 
 
 module.exports = router
