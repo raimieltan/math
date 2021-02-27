@@ -1,6 +1,6 @@
 REPORT Changes here:
 
 02-02-21 4:15 PM
-removed username column from tables since redundant sya sa email
+nagremove ko mga migrations nga di na magamit, kung may error sa knex, idrop lang ang database sa pg then migrate:up thankyou
 added login / signup backend
--Sean
+-Kent

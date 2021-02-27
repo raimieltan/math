@@ -7,12 +7,13 @@ export default function CreateProblem() {
   const [inputs, setInputs] = useState({
     question: "",
     formula: "",
+    choiceCount: "",
     variableName: "",
     variableMin: "",
     variableMax: ""
   });
 
-  const { question, formula, variableName, variableMin, variableMax } = inputs;
+  const { question, formula, choiceCount, variableName, variableMin, variableMax } = inputs;
 
   // const handleType = (e) => {
   //   e.preventDefault();
@@ -23,7 +24,7 @@ export default function CreateProblem() {
   const fillInTheBlankSubmit = async (e) => {
     e.preventDefault();
 
-    const body = { question, formula };
+    const body = { question, formula, choiceCount: null, type: 'fillInTheBlanks' };
 
     try {
 
@@ -64,8 +65,48 @@ export default function CreateProblem() {
     }
   }
 
-  const multipleChoiceSubmit = (e) => {
+  const multipleChoiceSubmit = async (e) => {
     e.preventDefault();
+
+    const body = { question, formula, choiceCount, type: 'multipleChoice' };
+
+    try {
+
+      const response = await fetch("http://localhost:8000/problems/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      })
+
+      const parseRes = await response.json();
+      const problemId = parseRes.rows[0].id;
+
+
+      for (const addedVariables of variables) {
+
+        try {
+
+          const body = { variable: addedVariables.variable, min: addedVariables.min, max: addedVariables.max };
+
+          const response = await fetch(`http://localhost:8000/variables/assign/${problemId}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+          })
+
+          const parseRes = await response.json();
+
+        } catch (error) {
+          console.log("ERROR:", error.message);
+        }
+
+      }
+
+      window.alert("Problem Added Successfully!")
+
+    } catch (error) {
+      console.log("ERROR:", error.message);
+    }
   }
 
   const handleInputs = (e) => {
@@ -83,10 +124,6 @@ export default function CreateProblem() {
   const addVariable = (e) => {
     e.preventDefault();
     setVariables(variable => variable.concat({ variable: variableName, min: variableMin, max: variableMax }))
-  }
-
-  const addChoices = (e) => {
-    e.preventDefault();
   }
 
   useEffect(() => {
@@ -117,7 +154,7 @@ export default function CreateProblem() {
         <option value="1">Fill in the Blanks</option>
       </select> */}
 
-      <div>
+      {/* <div id="fillInTheBlanks">
         <form onSubmit={fillInTheBlankSubmit}>
 
           <textarea
@@ -184,9 +221,9 @@ export default function CreateProblem() {
 
           <button id="form">Add Problem</button>
         </form>
-      </div>
+      </div> */}
 
-      {/* <div>
+      <div id="multiple-choices">
         <form onSubmit={multipleChoiceSubmit}>
 
           <textarea
@@ -196,7 +233,7 @@ export default function CreateProblem() {
             class="form-control"
             onChange={handleInputs}
           />
-          
+
           <input
             placeholder="Enter Formula Here"
             id="formula"
@@ -205,32 +242,62 @@ export default function CreateProblem() {
             onChange={handleInputs}
           />
 
-          <button id="add-variables" onClick={handleVariables}>Add Variables</button>
+          <span id="variable-inputs">
+            <input
+              id="variableName"
+              value={variableName}
+              placeholder="Variable Name"
+              onChange={handleInputs}
+            />
+            <input
+              type="number"
+              id="variableMax"
+              value={variableMax}
+              placeholder="Max Value"
+              onChange={handleInputs}
+            />
+            <input
+              type="number"
+              id="variableMin"
+              value={variableMin}
+              placeholder="Min Value"
+              onChange={handleInputs}
+            />
+          </span>
 
-          <div class="container" id="variables-container"/>
+          <button id="add-variables" onClick={addVariable}>Add Variable</button>
 
-          <button id="add-choices" onClick={handleChoices}>Add Choices</button>
+          <div class="container" id="variable-container">
+            {variables.length !== 0
+              ?
+              variables.map(variable =>
+                <div>
+                  <div id="variable-box">
+                    Variable Name: {variable.variable}<br />
+                      Variable Min: {variable.min}<br />
+                      Variable Max: {variable.max}<br />
+                  </div>
+                </div>
+              )
+              :
+              ""
+            }
+          </div>
 
-          <div class="container" id="choices-container"/>
+          <div>
+            <input
+              type="number"
+              id="choiceCount"
+              value={choiceCount}
+              placeholder="Number of Choices"
+              onChange={handleInputs}
+            />
+          </div>
 
           <button id="form">Add Problem</button>
-          
+
         </form>
-      </div> */}
-
-      {/* 
-      <div>
-        <form>
-          <input placeholder="Enter Question Here" />
-          <input placeholder="Enter Formula Here" />
-
-          <button type="button" onClick={addChoice}>Add choice</button>
-
-          <div class="choiceContainter">
-            { }
-          </div>
-        </form>
-      </div> */}
+      </div>
 
     </Fragment>
   )

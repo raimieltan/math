@@ -18,7 +18,7 @@ const pool = require("../pool.js")
 // })
 
 //fetch problems
-router.get('/', async (request, response) => {
+router.get('/fetch', async (request, response) => {
 
   try {
     
@@ -38,9 +38,13 @@ router.post('/create', async (request, response) => {
 
   try {
     
-    const { question, formula } = request.body;
+    const { question, formula, choiceCount, type } = request.body;
 
-    const newProblem = await pool.query('INSERT INTO problem VALUES (DEFAULT, $1, $2) RETURNING *', [question, formula]);
+    const newProblem = await pool.query(
+      `INSERT INTO problem VALUES (DEFAULT, $1, $2, $3, $4) RETURNING *`, 
+      [question, formula, type, choiceCount]
+    );
+
     response.json(newProblem);
     
   } catch (error) {
