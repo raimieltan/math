@@ -133,11 +133,11 @@
 
 	div #main-featured{
 		margin-top: 20px;
-		margin-left: 70px;
+		margin-left: 40px;
 	}
 
 	.card{
-		width: 100%;
+		width: 90%;
 		background-color: rgb(194, 213, 224);
 	}
 	.problem-card{
@@ -214,6 +214,44 @@
 		padding:5px 50px;
 
 	}
+
+
+	.check input[type="radio"] {
+		display: none;
+	}
+	.check label {
+		position: relative;
+		display: inline-block;
+		padding: 10px 10px 5px 30px;
+		cursor: pointer;
+		font-size: 25px;
+		font-family: 'RokkittRegular';
+
+	}
+	.check label::before {
+		position: absolute;
+		content: '';
+		top: 50%;
+		left: 0%;
+		width: 20px;
+		height: 20px;
+		margin-top: -8px;
+		background: #fff;
+		border: 1px solid #ccc;
+		border-radius: 100%;
+	}
+	.check input[type="radio"]:checked + label::after {
+		position: absolute;
+		content: '';
+		top: 50%;
+		left: 3px;
+		width: 15px;
+		height: 15px;
+		margin-top: -5px;
+		background: #3498db;
+		border-radius: 100%;
+	}
+
 }
 
 

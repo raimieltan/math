@@ -1,23 +1,23 @@
 import React, { useState } from "react"
 import { toast } from "react-toastify"
- 
+
 import './style.css';
 
 
 
 function SignUp({ setAuth }) {
 
-    const [inputs, setInputs ] = useState({
+    const [inputs, setInputs] = useState({
         fname: "",
         lname: "",
         email: "",
         password: ""
     })
 
-    const { fname, lname, email, password} = inputs
+    const { fname, lname, email, password } = inputs
 
     const onChange = (e) => {
-        setInputs({...inputs, [e.target.name]: e.target.value})
+        setInputs({ ...inputs, [e.target.name]: e.target.value })
     }
 
     const onSubmitForm = async (e) => {
@@ -29,16 +29,16 @@ function SignUp({ setAuth }) {
 
             const response = await fetch("http://localhost:8000/auth/register", {
                 method: "POST",
-                headers: { "Content-type": "application/json"},
+                headers: { "Content-type": "application/json" },
                 body: JSON.stringify(body)
             })
 
             const parseRes = await response.json()
-            
-            if(parseRes.token) {
+
+            if (parseRes.token) {
                 setAuth(true)
-                localStorage.setItem("token" , parseRes.token)
-                
+                localStorage.setItem("token", parseRes.token)
+
 
             }
         } catch (error) {
@@ -53,38 +53,41 @@ function SignUp({ setAuth }) {
 
             <body>
                 <div class="page">
-                <div class="header">
-                    <div>
+                    <div class="header">
+                        <div>
 
-                        <a href="/">
-                            <div id="logo"></div>
-                        </a>
+                            <a href="/">
+                                <div id="logo"></div>
+                            </a>
 
-                        <ul>
-                            <li class="selected">
-                                <a href="/">Home</a>
-                            </li>
-                            <li>
-                                <a href="/signup">Sign Up</a>
-                            </li>
-                            <li>
-                                <a href="/login">Login</a>
-                            </li>
-                        </ul>
+                            <ul>
+                                <li class="selected">
+                                    <a href="/">Home</a>
+                                </li>
+                                <li>
+                                    <a href="/signup">Sign Up</a>
+                                </li>
+                                <li>
+                                    <a href="/login">Login</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
                     <div class="body">
                         <div id="featured">
-                        
-                        <form onSubmit={onSubmitForm}>
 
-                            <input type="fname" name="fname" placeholder="First Name" value={fname} onChange={e => onChange(e)}></input>
-                            <input type="lname" name="lname" placeholder="Last Name" value={lname} onChange={e => onChange(e)}></input>
-                            <input type="email" name="email" placeholder="Email" value={email} onChange={e => onChange(e)}></input>
-                            <input type="password" name="password" placeholder="Password" value={password} onChange={e => onChange(e)}></input>
-                            {/* <h1>Test commit purposes</h1> */} <br/> <br/>
-                            <button id = "btn">Submit</button>
-                        </form>
+                            <form onSubmit={onSubmitForm}>
+
+                                <input type="fname" name="fname" placeholder="First Name" value={fname} onChange={e => onChange(e)}></input>
+                                <input type="lname" name="lname" placeholder="Last Name" value={lname} onChange={e => onChange(e)}></input>
+                                <input type="email" name="email" placeholder="Email" value={email} onChange={e => onChange(e)}></input>
+                                <input type="password" name="password" placeholder="Password" value={password} onChange={e => onChange(e)}></input>
+                                <div class="check">
+                                        <input type="radio" id="radio02-01" name="demo02" /><label for="radio02-01">Teacher</label>
+                                        <input type="radio" id="radio02-02" name="demo02" /><label for="radio02-02">Student</label>
+                                </div><br/>
+                                <button id="btn">Submit</button>
+                            </form>
 
                         </div>
                     </div>

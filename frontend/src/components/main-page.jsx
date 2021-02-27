@@ -1,18 +1,18 @@
 import './style.css';
 
-function Homepage() {
+function MainPage() {
     return (
         <div>
             <div class="header">
                 <div>
 
-                    <a href="/">
+                    <a href="/main-page">
                         <div id="logo"></div>
                     </a>
 
                     <ul>
                         <li class="selected">
-                            <a href="/">Home</a>
+                            <a href="/main-page">Home</a>
                         </li>
                         <li>
                             <a href="/profile">Profile</a>
@@ -50,4 +50,4 @@ function Homepage() {
     );
 }
 
-export default Homepage;
+export default MainPage;

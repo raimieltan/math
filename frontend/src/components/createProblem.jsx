@@ -38,9 +38,9 @@ export default function CreateProblem() {
 
 
       for (const addedVariables of variables) {
-        
+
         try {
-          
+
           const body = { variable: addedVariables.variable, min: addedVariables.min, max: addedVariables.max };
 
           const response = await fetch(`http://localhost:8000/variables/assign/${problemId}`, {
@@ -95,7 +95,23 @@ export default function CreateProblem() {
 
   return (
     <Fragment>
+      <div class="header">
+        <div>
 
+          <a href="/main-page">
+            <div id="logo"></div>
+          </a>
+
+          <ul>
+            <li class="selected">
+              <a href="/main-page">Home</a>
+            </li>
+            <li>
+              <a href="/profile">Profile</a>
+            </li>
+          </ul>
+        </div>
+      </div>
       {/* <select id="problemType" class="form form-select" onChange={handleType}>
         <option value="0">Multiple Choice</option>
         <option value="1">Fill in the Blanks</option>

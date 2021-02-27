@@ -118,20 +118,3 @@ export default function Quiz({ id, problem, solution, answer, addScore, index, f
 
     )
 }
-
-//   const handleNextOptionClick = (isCorrect) => {
-//     if (isCorrect) {
-//       setScore(score + 1)
-//     }
-//     else {
-//       console.log(isCorrect)
-//     }
-//     const nextQuestion = currentQuestion + 1
-
-//     if (nextQuestion < problems.length) {
-//       setCurrentQuestion(nextQuestion)
-//     }
-//     else {
-//       setShowScore(true)
-//     }
-//   }
