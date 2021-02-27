@@ -3,6 +3,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 export default function CreateProblem() {
 
   const [variables, setVariables] = useState([]);
+  const [type, setType] = useState(0);
 
   const [inputs, setInputs] = useState({
     question: "",
@@ -15,11 +16,10 @@ export default function CreateProblem() {
 
   const { question, formula, choiceCount, variableName, variableMin, variableMax } = inputs;
 
-  // const handleType = (e) => {
-  //   e.preventDefault();
-  //   const id = e.target.value;
-  //   setType(id);
-  // }
+  const handleType = (e) => {
+    const id = e.target.value;
+    setType(id);
+  }
 
   const fillInTheBlankSubmit = async (e) => {
     e.preventDefault();
@@ -133,12 +133,12 @@ export default function CreateProblem() {
   return (
     <Fragment>
 
-      {/* <select id="problemType" class="form form-select" onChange={handleType}>
-        <option value="0">Multiple Choice</option>
-        <option value="1">Fill in the Blanks</option>
-      </select> */}
+      <select id="problemType" class="form form-select" onChange={handleType}>
+        <option value="1">Multiple Choice</option>
+        <option value="0">Fill in the Blanks</option>
+      </select>
 
-      {/* <div id="fillInTheBlanks">
+      <div id="fillInTheBlanks">
         <form onSubmit={fillInTheBlankSubmit}>
 
           <textarea
@@ -193,8 +193,8 @@ export default function CreateProblem() {
                 <div>
                   <div id="variable-box">
                     Variable Name: {variable.variable}<br />
-                      Variable Min: {variable.min}<br />
-                      Variable Max: {variable.max}<br />
+                        Variable Min: {variable.min}<br />
+                        Variable Max: {variable.max}<br />
                   </div>
                 </div>
               )
@@ -205,9 +205,9 @@ export default function CreateProblem() {
 
           <button id="form">Add Problem</button>
         </form>
-      </div> */}
+      </div>
 
-      <div id="multiple-choices">
+      {/* <div id="multiple-choices">
         <form onSubmit={multipleChoiceSubmit}>
 
           <textarea
@@ -258,8 +258,8 @@ export default function CreateProblem() {
                 <div>
                   <div id="variable-box">
                     Variable Name: {variable.variable}<br />
-                      Variable Min: {variable.min}<br />
-                      Variable Max: {variable.max}<br />
+                    Variable Min: {variable.min}<br />
+                    Variable Max: {variable.max}<br />
                   </div>
                 </div>
               )
@@ -281,7 +281,7 @@ export default function CreateProblem() {
           <button id="form">Add Problem</button>
 
         </form>
-      </div>
+      </div> */}
 
     </Fragment>
   )

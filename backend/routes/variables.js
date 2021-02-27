@@ -3,28 +3,29 @@ const { response } = require('express');
 const pool = require("../pool.js")
 
 //fetch variables
-// router.get('/', async (req, res) => {
+router.get('/fetch/:problemId', async (req, res) => {
   
-//   try{
+  try{
     
-//     const fetchValues = await pool.query('SELECT * FROM variable');
-//     res.json(fetchValues.rows);
+    const { problemId } = req.params;
+    const fetchValues = await pool.query('SELECT * FROM variable WHERE problem_id = $1', [problemId]);
+    res.json(fetchValues.rows);
  
-//   }catch(error) {
+  }catch(error) {
     
-//     console.error("ERROR: ", error.message);
-//     res.json({ error: error.message });
+    console.error("ERROR: ", error.message);
+    res.json({ error: error.message });
   
-//   }
+  }
   
-// })
+})
 
 //insert variables
 router.post('/assign/:problemId', async (req, res) => {
   
   try {
 
-    const problemId = req.params.problemId;
+    const { problemId } = req.params;
     const { variable, min, max } = req.body;
 
     const sqlQuery = 'INSERT INTO variable VALUES (DEFAULT, $1, $2, $3, $4) RETURNING *'
