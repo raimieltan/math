@@ -16,6 +16,7 @@ import Problem from './components/problem';
 import MainPage from './components/main-page'
 import CreateProblem from './components/createProblem'
 import Quiz from './components/quiz';
+import TeacherPage from './components/tacher-page';
 
 function App() {
 
@@ -54,6 +55,8 @@ function App() {
             {/* <Route exact path="/profile" component={ () => authentication ? <Profile setAuth={setAuth}/> : <Redirect to="/login"/> }/> */}
             {/* <Route exact path="/profile" component={ () =>  authentication ? <Profile setAuth={setAuth}/> : <Redirect to="/"/> }/> */}
             <Route exact path="/main-page" component={() => <MainPage />} />
+            <Route exact path="/teacher-page" component={() => <TeacherPage/>} />
+
 
             <Route exact path="/quiz" component={() => <Problem />} />
             <Route exact path="/about" component={() => <About />} />
