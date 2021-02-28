@@ -197,23 +197,21 @@ export default function Quiz() {
         }
       }
 
-      for (const fillBlankProblem of fillBlanks) {
-        let filterDuplicate = fixedProblems.filter(p => p.id === fillBlankProblem.id);
-
-        if (filterDuplicate.length === 0) {
-          setFixedProblems(p => p.concat(fillBlankProblem));
-        }
-      }
-
     } catch (error) {
       console.log("ERROR ASSIGNING CHOICES: ", error.message);
     }
   }
 
   console.log("FINAL PROBLEMS", fixedProblems);
+  
+  const addRemaining = () => {
+    for (const fillBlankProblem of fillBlanks) {
+      let filterDuplicate = fixedProblems.filter(p => p.id === fillBlankProblem.id);
 
-  const shuffleFinalProblems = () => {
-    
+      if (filterDuplicate.length === 0) {
+        setFixedProblems(p => p.concat(fillBlankProblem));
+      }
+    }
   }
 
   useEffect(() => {
@@ -235,6 +233,10 @@ export default function Quiz() {
   useEffect(() => {
     assignChoices();
   }, [multipleChoices]);
+
+  useEffect(() => {
+    addRemaining();
+  }, [fillBlanks])
 
   return (
     <Fragment>
