@@ -9,14 +9,16 @@ export default function Quiz() {
   const [variables, setVariables] = useState([]);
   const [newProblems, setNewProblems] = useState([]);
 
+  const [fixedProblems, setFixedProblems] = useState([]);
+
   const [multipleChoices, setMultipleChoices] = useState([]);
+  const [fillBlanks, setFillBlanks] = useState([]);
 
   const shuffle = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = math.floor(math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
     }
-
     return array;
   }
 
@@ -34,6 +36,8 @@ export default function Quiz() {
       console.log("ERROR FETCHING PROBLEMS:", error.message);
     }
   }
+
+  console.log("PROBLEMS: ", problems);
 
   const randomVar = (min, max) => {
     min = math.ceil(min);
@@ -68,33 +72,38 @@ export default function Quiz() {
     }
   }
 
+  console.log("VARIABLES: ", variables)
+
   const replaceQuestionVariables = async (problem, variable) => {
 
     try {
 
-      for (let i = 0; i < problem.length; i++) {
-        
-        let question = problem[i].problem_question;
-        let type = problem[i].problem_type;
-        let choiceCount = problem[i].problem_choices_count;
-        let formula = problem[i].problem_formula;
-        let scope = {};
+      if (problem.length !== 0) {
 
-        for (let j = 0; j < variable[i].length; j++) {
+        for (let i = 0; i < problem.length; i++) {
 
-          let newQuestion = question.replace(`${variable[i][j].variable}`, `${variable[i][j].value}`);
-          scope[variable[i][j].variable] = variable[i][j].value;
-          question = newQuestion;
+          let question = problem[i].problem_question;
+          let type = problem[i].problem_type;
+          let choiceCount = problem[i].problem_choices_count;
+          let formula = problem[i].problem_formula;
+          let id = problem[i].problem_id;
+          let scope = {};
+
+          for (let j = 0; j < variable[i].length; j++) {
+
+            let newQuestion = question.replace(`${variable[i][j].variable}`, `${variable[i][j].value}`);
+            scope[variable[i][j].variable] = variable[i][j].value;
+            question = newQuestion;
+          }
+
+          let answer = (math.evaluate(formula, scope));
+
+          setNewProblems(problem => problem.concat({ id, question, formula, answer, choiceCount, type }))
+
+          console.log("NEW PROBLEMS:", problems);
         }
-          
-        let answer = (math.evaluate(formula, scope));
-        
-        setNewProblems(problem => problem.concat({ question: question, formula: formula, answer, choiceCount, type}))
-        identifyChoiceProblems();
-
-        console.log("NEW PROBLEMS:", problems);
       }
-      
+
     } catch (error) {
       console.log("ERROR REPLACING VARIABLES: ", error.message);
     }
@@ -103,11 +112,17 @@ export default function Quiz() {
   const identifyChoiceProblems = async () => {
     try {
       for (const problem of newProblems) {
+        console.log(problem.type);
+
+        if (problem.type === 1) {
+          setMultipleChoices(p => p.concat(problem));
+        }
+
         if (problem.type === 0) {
-          setMultipleChoices(problem => problem.concat(problem));
+          setFillBlanks(p => p.concat(problem));
         }
       }
-      setNewProblems(newProblems.filter(problem => problem.type !== 0));
+
     } catch (error) {
       console.log("ERROR IDENTIFYING PROBLEMS: ", error.message);
     }
@@ -115,41 +130,60 @@ export default function Quiz() {
 
   const assignChoices = async () => {
     try {
-      for (const problem of multipleChoices) {
-        const choicesArray = ['A', 'B', 'C', 'D', 'E', 'F'];
-        let choiceValues = [];
-        let choices = {};
+
+      const choicesArray = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+      if (multipleChoices.length !== 0) {
+        for (const problem of multipleChoices) {
   
-        for (let i=0; i < problem.choiceCount - 1; i++) {
-          choiceValues.push(randomVar(problem.answer - 10, problem.answer - 1));
+          let choiceValues = [];
+          let choices = {};
+
+          choiceValues.push(problem.answer);
+
+          for (let i = 0; i < problem.choiceCount - 1; i++) {
+            let randomValues = randomVar(problem.answer - 10, problem.answer - 1);
+
+            let valuesIncluded = choiceValues.filter(value => value === randomValues);
+
+            if (randomValues !== problem.answer && valuesIncluded.length !== 1) {
+              choiceValues.push(randomVar(problem.answer - 10, problem.answer - 1));
+            } else {
+              choiceValues.push(randomVar(problem.answer - 10, problem.answer - 1));
+            }
+
+          }
+          
+          const shuffledChoices = shuffle(choiceValues);
+          choiceValues = shuffledChoices;
+
+          console.log(choiceValues);
+          
+          for (let i=0; i < choiceValues.length; i++) {
+            choices[choicesArray[i]] = choiceValues[i];
+          }
+
+          setFixedProblems(newProblem =>
+            newProblem.concat({
+              question: problem.question,
+              formula: problem.formula,
+              answer: problem.answer,
+              type: problem.type,
+              choices
+            })
+          )
+
+          setFixedProblems(newProblem => newProblem.concat(fillBlanks));
         }
-        choiceValues.push(problem.answer);
-        
-        const shuffledChoices = shuffle(choiceValues);
-        choiceValues = shuffledChoices;
-        
-        for (let choice = 0; choiceValues.length; choice++) {
-          choices[choicesArray[choice]] = choiceValues[choice];
-        }
-  
-        setNewProblems(problem => 
-          problem.concat({ 
-            question: problem.question,
-            formula: problem.formula,
-            answer: problem.answer,
-            type: problem.type,
-            choices
-          })
-        )
       }
     } catch (error) {
       console.log("ERROR ASSIGNING CHOICES: ", error.message);
     }
   }
 
-  console.log(problems);
-  console.log(variables)
-  
+  console.log("MULTIPLE CHOICES: ", multipleChoices);
+  console.log("FIXED PROBLEMS: ", fixedProblems);
+
   useEffect(() => {
     fetchProblems();
   }, [])
@@ -162,7 +196,13 @@ export default function Quiz() {
     replaceQuestionVariables(problems, variables);
   }, [variables]);
 
+  useEffect(() => {
+    identifyChoiceProblems();
+  }, [newProblems]);
 
+  function hello() {
+    console.log("hello");
+  }
 
   useEffect(() => {
     assignChoices();
@@ -171,11 +211,22 @@ export default function Quiz() {
   return (
     <Fragment>
       <div>
-      {newProblems.length !== 0
-          ? newProblems.map(problem =>
+        {fixedProblems.length !== 0
+          ? fixedProblems.map(problem =>
             <div>
+              <p>{problem.type}</p>
               <p>{problem.question}</p>
               <p>{problem.answer}</p>
+
+              <div>
+                {problem.type === 0 
+                  ?
+                    <input type="text" placeholder="Enter Input Here"></input>
+                  :
+                    <p>A: {problem.choices.A} B: {problem.choices.B} C: {problem.choices.C} D: {problem.choices.D}</p>
+
+                }
+              </div>
             </div>
           )
           : ""
