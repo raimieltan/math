@@ -132,156 +132,188 @@ export default function CreateProblem() {
 
   return (
     <Fragment>
+      <div class="header">
+        <div>
 
-      <select id="problemType" class="form form-select" onChange={handleType}>
-        <option value="1">Multiple Choice</option>
-        <option value="0">Fill in the Blanks</option>
-      </select>
+          <a href="/main-page">
+            <div id="logo"></div>
+          </a>
 
-      <div id="fillInTheBlanks">
-        <form onSubmit={fillInTheBlankSubmit}>
+          <ul>
+            <li class="selected">
+              <a href="/main-page">Home</a>
+            </li>
+            <li>
+              <a href="/profile">Profile</a>
+            </li>
+          </ul>
+        </div>
+      </div> <br /> <br />
 
-          <textarea
-            placeholder="Enter Question Here"
-            id="question"
-            value={question}
-            rows="2"
-            cols="10"
-            class="form-control"
-            onChange={handleInputs}
-          />
+      <div id = "accordion" onChange={handleType}>
+        <p  > 
+          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#formula-prob" aria-expanded="false" aria-controls="collapseExample">Formula Problem</button>
+          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiple-prob" aria-expanded="false" aria-controls="collapseExample">Multiple Choice Problem</button>
+        </p>
+        <div class="collapse" id="formula-prob" data-parent="#accordion">
+          <div class="card prob"> 
+            <div id="fillInTheBlanks">
+              <form onSubmit={fillInTheBlankSubmit}>
+                <textarea
+                  placeholder="Enter Question Here"
+                  id="question"
+                  value={question}
+                  rows="2"
+                  cols="10"
+                  class="form-control"
+                  onChange={handleInputs}
+                />
 
-          <input
-            placeholder="Enter Formula Here"
-            id="formula"
-            value={formula}
-            class="form-control"
-            onChange={handleInputs}
-          />
+                <input
+                  placeholder="Enter Formula Here"
+                  id="formula"
+                  value={formula}
+                  class="form-control"
+                  onChange={handleInputs}
+                />
 
-          <span id="variable-inputs">
-            <input
-              id="variableName"
-              value={variableName}
-              placeholder="Variable Name"
-              onChange={handleInputs}
-            />
-            <input
-              type="number"
-              id="variableMax"
-              value={variableMax}
-              placeholder="Max Value"
-              onChange={handleInputs}
-            />
-            <input
-              type="number"
-              id="variableMin"
-              value={variableMin}
-              placeholder="Min Value"
-              onChange={handleInputs}
-            />
-          </span>
+                <span id="variable-inputs">
+                  <input
+                    id="variableName"
+                    value={variableName}
+                    placeholder="Variable Name"
+                    onChange={handleInputs}
+                  />
+                  <input
+                    type="number"
+                    id="variableMax"
+                    value={variableMax}
+                    placeholder="Max Value"
+                    onChange={handleInputs}
+                  />
+                  <input
+                    type="number"
+                    id="variableMin"
+                    value={variableMin}
+                    placeholder="Min Value"
+                    onChange={handleInputs}
+                  />
+                </span>
 
-          <div>
-            <button id="add-variable" onClick={addVariable}>Add Variable</button>
-          </div>
-
-          <div class="container" id="variable-container">
-            {variables.length !== 0
-              ?
-              variables.map(variable =>
                 <div>
-                  <div id="variable-box">
-                    Variable Name: {variable.variable}<br />
+                  <button id="add-variable" onClick={addVariable}>Add Variable</button>
+                </div>
+
+                <div class="container" id="variable-container">
+                  {variables.length !== 0
+                    ?
+                    variables.map(variable =>
+                      <div>
+                        <div id="variable-box">
+                          Variable Name: {variable.variable}<br />
                         Variable Min: {variable.min}<br />
                         Variable Max: {variable.max}<br />
-                  </div>
+                        </div>
+                      </div>
+                    )
+                    :
+                    ""
+                  }
                 </div>
-              )
-              :
-              ""
-            }
+
+                <button id="form">Add Problem</button>
+              </form>
+            </div>
           </div>
+        </div>
+        <div class="collapse" id="multiple-prob" data-parent="#accordion">
+          <div class="card prob">
+            <div id="multiple-choices">
+              <form onSubmit={multipleChoiceSubmit}>
 
-          <button id="form">Add Problem</button>
-        </form>
-      </div>
+                <textarea
+                  placeholder="Enter Question Here"
+                  id="question"
+                  value={question}
+                  class="form-control"
+                  onChange={handleInputs}
+                />
 
-      {/* <div id="multiple-choices">
-        <form onSubmit={multipleChoiceSubmit}>
+                <input
+                  placeholder="Enter Formula Here"
+                  id="formula"
+                  value={formula}
+                  class="form-control"
+                  onChange={handleInputs}
+                />
 
-          <textarea
-            placeholder="Enter Question Here"
-            id="question"
-            value={question}
-            class="form-control"
-            onChange={handleInputs}
-          />
+                <span id="variable-inputs">
+                  <input
+                    id="variableName"
+                    value={variableName}
+                    placeholder="Variable Name"
+                    onChange={handleInputs}
+                  />
+                  <input
+                    type="number"
+                    id="variableMax"
+                    value={variableMax}
+                    placeholder="Max Value"
+                    onChange={handleInputs}
+                  />
+                  <input
+                    type="number"
+                    id="variableMin"
+                    value={variableMin}
+                    placeholder="Min Value"
+                    onChange={handleInputs}
+                  />
+                </span>
 
-          <input
-            placeholder="Enter Formula Here"
-            id="formula"
-            value={formula}
-            class="form-control"
-            onChange={handleInputs}
-          />
+                <button id="add-variables" onClick={addVariable}>Add Variable</button>
 
-          <span id="variable-inputs">
-            <input
-              id="variableName"
-              value={variableName}
-              placeholder="Variable Name"
-              onChange={handleInputs}
-            />
-            <input
-              type="number"
-              id="variableMax"
-              value={variableMax}
-              placeholder="Max Value"
-              onChange={handleInputs}
-            />
-            <input
-              type="number"
-              id="variableMin"
-              value={variableMin}
-              placeholder="Min Value"
-              onChange={handleInputs}
-            />
-          </span>
-
-          <button id="add-variables" onClick={addVariable}>Add Variable</button>
-
-          <div class="container" id="variable-container">
-            {variables.length !== 0
-              ?
-              variables.map(variable =>
-                <div>
-                  <div id="variable-box">
-                    Variable Name: {variable.variable}<br />
+                <div class="container" id="variable-container">
+                  {variables.length !== 0
+                    ?
+                    variables.map(variable =>
+                      <div>
+                        <div id="variable-box">
+                          Variable Name: {variable.variable}<br />
                     Variable Min: {variable.min}<br />
                     Variable Max: {variable.max}<br />
-                  </div>
+                        </div>
+                      </div>
+                    )
+                    :
+                    ""
+                  }
                 </div>
-              )
-              :
-              ""
-            }
+
+                <div>
+                  <input
+                    type="number"
+                    id="choiceCount"
+                    value={choiceCount}
+                    placeholder="Number of Choices"
+                    onChange={handleInputs}
+                  />
+                </div>
+
+                <button id="form">Add Problem</button>
+
+              </form>
+            </div>
           </div>
+        </div>
+      </div>
+      {/* <select id="problemType" class="form form-select" onChange={handleType} >
+        <option value="1">Multiple Choice</option>
+        <option value="0">Fill in the Blanks</option>
+      </select> */}
 
-          <div>
-            <input
-              type="number"
-              id="choiceCount"
-              value={choiceCount}
-              placeholder="Number of Choices"
-              onChange={handleInputs}
-            />
-          </div>
 
-          <button id="form">Add Problem</button>
 
-        </form>
-      </div> */}
+
 
     </Fragment>
   )
