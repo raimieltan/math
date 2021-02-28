@@ -72,60 +72,70 @@ export default function Quiz() {
     }
   }
 
-  const replaceQuestionVariables = async (problem, variable) => {
+  console.log("VARIABLES: ", variables);
+
+  const replaceQuestionVariables = async () => {
 
     try {
 
-      if (problem.length !== 0) {
+      for (let i = 0; i < problems.length; i++) {
 
-        for (let i = 0; i < problem.length; i++) {
+        let question = problems[i].problem_question;
+        let type = problems[i].problem_type;
+        let choiceCount = problems[i].problem_choices_count;
+        let formula = problems[i].problem_formula;
+        let id = problems[i].id;
+        let scope = {};
 
-          let question = problem[i].problem_question;
-          let type = problem[i].problem_type;
-          let choiceCount = problem[i].problem_choices_count;
-          let formula = problem[i].problem_formula;
-          let id = problem[i].id;
-          let scope = {};
+        for (let j = 0; j < variables[i].length; j++) {
 
-          for (let j = 0; j < variable[i].length; j++) {
+          let newQuestion = question.replace(`${variables[i][j].variable}`, `${variables[i][j].value}`);
+          scope[variables[i][j].variable] = variables[i][j].value;
+          question = newQuestion;
+        }
 
-            let newQuestion = question.replace(`${variable[i][j].variable}`, `${variable[i][j].value}`);
-            scope[variable[i][j].variable] = variable[i][j].value;
-            question = newQuestion;
-          }
+        let answer = (math.evaluate(formula, scope));
 
-          let answer = (math.evaluate(formula, scope));
+        let filterDuplicate = newProblems.filter(p => p.id === id);
 
-          const filter = newProblems.filter(p => p.id === id);
-
-          if (filter.length === 0) {
-            setNewProblems(p => p.concat({ id, question, formula, answer, choiceCount, type }))
-          }
-
+        if (filterDuplicate.length === 0) {
+          setNewProblems(p => p.concat({ id, question, formula, answer, choiceCount, type }))
         }
       }
+
 
     } catch (error) {
       console.log("ERROR REPLACING VARIABLES: ", error.message);
     }
   }
 
-  console.log(newProblems);
+  console.log("NEW PROBLEMS: ", newProblems);
 
-  const identifyChoiceProblems = async () => {
+  const identifyProblems = async () => {
     try {
 
-      if (newProblems.length > 1) {
+      for (const problem of newProblems) {
 
-        for (const problem of newProblems) {
+        console.log("CURRENT PROBLEM", problem);
 
-          if (problem.type === 1) {
+        if (problem.type === 1) {
+          
+          let filterDuplicate = multipleChoices.filter(p => p.id === problem.id);
+
+          if (filterDuplicate.length === 0) {
             setMultipleChoices(p => p.concat(problem));
           }
 
-          if (problem.type === 0) {
+        }
+
+        if (problem.type === 0) {
+          
+          let filterDuplicate = fillBlanks.filter(p => p.id === problem.id);
+
+          if (filterDuplicate.length === 0) {
             setFillBlanks(p => p.concat(problem));
           }
+
         }
       }
 
@@ -133,6 +143,9 @@ export default function Quiz() {
       console.log("ERROR IDENTIFYING PROBLEMS: ", error.message);
     }
   }
+
+  console.log("MULTIPLE CHOICES: ", multipleChoices)
+  console.log("FILLBLANKS: ", fillBlanks);
 
   const assignChoices = async () => {
     try {
@@ -167,23 +180,40 @@ export default function Quiz() {
             choices[choicesArray[i]] = choiceValues[i];
           }
 
-          setFixedProblems(newProblem =>
-            newProblem.concat({
-              id: problem.id,
-              question: problem.question,
-              formula: problem.formula,
-              answer: problem.answer,
-              type: problem.type,
-              choices
-            })
-          )
+          let filterDuplicate = fixedProblems.filter(p => p.id === problem.id);
 
-          setFixedProblems(newProblem => newProblem.concat(fillBlanks));
+          if (filterDuplicate.length === 0) {
+            setFixedProblems(newProblem =>
+              newProblem.concat({
+                id: problem.id,
+                question: problem.question,
+                formula: problem.formula,
+                answer: problem.answer,
+                type: problem.type,
+                choices
+              })
+            )
+          }
         }
       }
+
+      for (const fillBlankProblem of fillBlanks) {
+        let filterDuplicate = fixedProblems.filter(p => p.id === fillBlankProblem.id);
+
+        if (filterDuplicate.length === 0) {
+          setFixedProblems(p => p.concat(fillBlankProblem));
+        }
+      }
+
     } catch (error) {
       console.log("ERROR ASSIGNING CHOICES: ", error.message);
     }
+  }
+
+  console.log("FINAL PROBLEMS", fixedProblems);
+
+  const shuffleFinalProblems = () => {
+    
   }
 
   useEffect(() => {
@@ -195,11 +225,11 @@ export default function Quiz() {
   }, [problems]);
 
   useEffect(() => {
-    replaceQuestionVariables(problems, variables);
+    replaceQuestionVariables();
   }, [variables]);
 
   useEffect(() => {
-    identifyChoiceProblems();
+    identifyProblems();
   }, [newProblems]);
 
   useEffect(() => {
@@ -212,7 +242,7 @@ export default function Quiz() {
         {fixedProblems.length !== 0
           ? fixedProblems.map(problem =>
             <div>
-              <p>{problem.type}</p>
+              <p>{problem.type === 1 ? "Multiple Choices Problems" : "Fill In The Blanks"}</p>
               <p>{problem.question}</p>
               <p>{problem.answer}</p>
 

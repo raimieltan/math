@@ -24,7 +24,7 @@ export default function CreateProblem() {
   const fillInTheBlankSubmit = async (e) => {
     e.preventDefault();
 
-    const body = { question, formula, choiceCount: null, type: 'fillInTheBlanks' };
+    const body = { question, formula, choiceCount: null, type: 1 };
 
     try {
 
@@ -68,7 +68,7 @@ export default function CreateProblem() {
   const multipleChoiceSubmit = async (e) => {
     e.preventDefault();
 
-    const body = { question, formula, choiceCount, type: 'multipleChoice' };
+    const body = { question, formula, choiceCount, type: 0 };
 
     try {
 
