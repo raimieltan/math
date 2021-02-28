@@ -37,8 +37,6 @@ export default function Quiz() {
     }
   }
 
-  console.log("PROBLEMS: ", problems);
-
   const randomVar = (min, max) => {
     min = math.ceil(min);
     max = math.ceil(max);
@@ -46,6 +44,8 @@ export default function Quiz() {
     return math.round(math.random() * (max - min) + min)
 
   }
+
+  console.log("PROBLEMS: ", problems);
 
   const assignVariables = async () => {
 
@@ -72,8 +72,6 @@ export default function Quiz() {
     }
   }
 
-  console.log("VARIABLES: ", variables)
-
   const replaceQuestionVariables = async (problem, variable) => {
 
     try {
@@ -86,7 +84,7 @@ export default function Quiz() {
           let type = problem[i].problem_type;
           let choiceCount = problem[i].problem_choices_count;
           let formula = problem[i].problem_formula;
-          let id = problem[i].problem_id;
+          let id = problem[i].id;
           let scope = {};
 
           for (let j = 0; j < variable[i].length; j++) {
@@ -98,9 +96,12 @@ export default function Quiz() {
 
           let answer = (math.evaluate(formula, scope));
 
-          setNewProblems(problem => problem.concat({ id, question, formula, answer, choiceCount, type }))
+          const filter = newProblems.filter(p => p.id === id);
 
-          console.log("NEW PROBLEMS:", problems);
+          if (filter.length === 0) {
+            setNewProblems(p => p.concat({ id, question, formula, answer, choiceCount, type }))
+          }
+
         }
       }
 
@@ -109,17 +110,22 @@ export default function Quiz() {
     }
   }
 
+  console.log(newProblems);
+
   const identifyChoiceProblems = async () => {
     try {
-      for (const problem of newProblems) {
-        console.log(problem.type);
 
-        if (problem.type === 1) {
-          setMultipleChoices(p => p.concat(problem));
-        }
+      if (newProblems.length > 1) {
 
-        if (problem.type === 0) {
-          setFillBlanks(p => p.concat(problem));
+        for (const problem of newProblems) {
+
+          if (problem.type === 1) {
+            setMultipleChoices(p => p.concat(problem));
+          }
+
+          if (problem.type === 0) {
+            setFillBlanks(p => p.concat(problem));
+          }
         }
       }
 
@@ -135,7 +141,7 @@ export default function Quiz() {
 
       if (multipleChoices.length !== 0) {
         for (const problem of multipleChoices) {
-  
+
           let choiceValues = [];
           let choices = {};
 
@@ -153,18 +159,17 @@ export default function Quiz() {
             }
 
           }
-          
+
           const shuffledChoices = shuffle(choiceValues);
           choiceValues = shuffledChoices;
 
-          console.log(choiceValues);
-          
-          for (let i=0; i < choiceValues.length; i++) {
+          for (let i = 0; i < choiceValues.length; i++) {
             choices[choicesArray[i]] = choiceValues[i];
           }
 
           setFixedProblems(newProblem =>
             newProblem.concat({
+              id: problem.id,
               question: problem.question,
               formula: problem.formula,
               answer: problem.answer,
@@ -180,9 +185,6 @@ export default function Quiz() {
       console.log("ERROR ASSIGNING CHOICES: ", error.message);
     }
   }
-
-  console.log("MULTIPLE CHOICES: ", multipleChoices);
-  console.log("FIXED PROBLEMS: ", fixedProblems);
 
   useEffect(() => {
     fetchProblems();
@@ -200,10 +202,6 @@ export default function Quiz() {
     identifyChoiceProblems();
   }, [newProblems]);
 
-  function hello() {
-    console.log("hello");
-  }
-
   useEffect(() => {
     assignChoices();
   }, [multipleChoices]);
@@ -219,11 +217,11 @@ export default function Quiz() {
               <p>{problem.answer}</p>
 
               <div>
-                {problem.type === 0 
+                {problem.type === 0
                   ?
-                    <input type="text" placeholder="Enter Input Here"></input>
+                  <input type="text" placeholder="Enter Input Here"></input>
                   :
-                    <p>A: {problem.choices.A} B: {problem.choices.B} C: {problem.choices.C} D: {problem.choices.D}</p>
+                  <p>A: {problem.choices.A} B: {problem.choices.B} C: {problem.choices.C} D: {problem.choices.D}</p>
 
                 }
               </div>
