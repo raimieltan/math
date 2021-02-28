@@ -14,7 +14,7 @@ exports.up = function(knex) {
         id SERIAL NOT NULL PRIMARY KEY,
         problem_question TEXT NOT NULL,
         problem_formula TEXT NOT NULL,
-        problem_type TEXT NOT NULL,
+        problem_type INTEGER NOT NULL,
         problem_choices_count INTEGER
       )
     `

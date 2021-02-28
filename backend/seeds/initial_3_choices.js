@@ -1,67 +1,37 @@
 exports.seed = function (knex) {
-    // return knex.raw(`
+    return knex.raw(`
 
-  
-    //   INSERT INTO choices VALUES
-    //   (
-    //     DEFAULT,
-    //     '6',
-    //     1,
-    //     TRUE
-    //   ),
+      INSERT INTO variable VALUES (
+        DEFAULT,
+        1,
+        'x',
+        10,
+        20
+      ),
 
-    //   (
-    //     DEFAULT,
-    //     '7',
-    //     1,
-    //     FALSE
-    //   ),
+      (
+        DEFAULT,
+        1,
+        'y',
+        10,
+        20 
+      ),
+      
+      (
+        DEFAULT,
+        2,
+        'x',
+        10,
+        20
+      ),
 
-    //   (
-    //     DEFAULT,
-    //     '8',
-    //     1,
-    //     FALSE
-    //   ),
-
-    //   (
-    //     DEFAULT,
-    //     '9',
-    //     1,
-    //     FALSE
-    //   ),
-
-
-    //   (
-    //     DEFAULT,
-    //     '8 Apples',
-    //     2,
-    //     TRUE
-    //   ),
-
-    //   (
-    //     DEFAULT,
-    //     '3 Apples',
-    //     2,
-    //     FALSE
-    //   ),
-
-    //   (
-    //     DEFAULT,
-    //     '2 Apples',
-    //     2,
-    //     FALSE
-    //   ),
-
-    //   (
-    //     DEFAULT,
-    //     '5 Apples',
-    //     2,
-    //     FALSE
-    //   );
-
-    // `)
-
-    return knex.raw('')
+      (
+        DEFAULT,
+        2,
+        'y',
+        10,
+        20
+      )
+    `)
   };
   

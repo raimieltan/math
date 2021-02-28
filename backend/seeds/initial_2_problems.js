@@ -1,19 +1,20 @@
 exports.seed = function (knex) {
-  // return knex.raw(`
-  //   INSERT INTO problems VALUES (
-  //     DEFAULT, 
-  //     'Add 1 and 5', 
-  //     '1 + 5 = 6', 
-  //     '6'
-  //   ),
+  return knex.raw(`
+    INSERT INTO problem VALUES 
+    (
+      DEFAULT, 
+      'What is x + y?', 
+      'x + y', 
+      0,
+      null
+    ),
 
-  //   (
-  //     DEFAULT, 
-  //     'John have 5 apples Mary have 3 apples. If John took all the apples Mary have. State the total amount of apple John have', 
-  //     '5 + 3 = 8', 
-  //     '8 apples'
-  //   )
-  // `)
-
-  return knex.raw('')
+    (
+      DEFAULT,
+      'What is x - y?',
+      'x - y', 
+      1,
+      4
+    )
+  `)
 };

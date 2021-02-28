@@ -1,5 +1,5 @@
 import { Fragment, React, useState, useEffect } from 'react';
-import { create, all } from 'mathjs';
+import { create, all, random } from 'mathjs';
 
 export default function Quiz() {
   const config = {};
@@ -8,7 +8,8 @@ export default function Quiz() {
   const [problems, setProblems] = useState([]);
   const [variables, setVariables] = useState([]);
   const [newProblems, setNewProblems] = useState([]);
-  const [choices, setChoices] = useState([]);
+
+  const [multipleChoices, setMultipleChoices] = useState([]);
 
   const shuffle = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -30,7 +31,7 @@ export default function Quiz() {
       setProblems(shuffledProblems);
 
     } catch (error) {
-      console.log("ERROR:", error.message);
+      console.log("ERROR FETCHING PROBLEMS:", error.message);
     }
   }
 
@@ -62,7 +63,7 @@ export default function Quiz() {
         setVariables(variable => variable.concat([variableArray]));
 
       } catch (error) {
-        console.log("ERROR: ", error.message);
+        console.log("ERROR ASSIGNING VARIABLES: ", error.message);
       }
     }
   }
@@ -74,6 +75,8 @@ export default function Quiz() {
       for (let i = 0; i < problem.length; i++) {
         
         let question = problem[i].problem_question;
+        let type = problem[i].problem_type;
+        let choiceCount = problem[i].problem_choices_count;
         let formula = problem[i].problem_formula;
         let scope = {};
 
@@ -83,27 +86,69 @@ export default function Quiz() {
           scope[variable[i][j].variable] = variable[i][j].value;
           question = newQuestion;
         }
-
-        console.log(formula);
-        console.log(question);
-        console.log(scope);
+          
         let answer = (math.evaluate(formula, scope));
         
-        setNewProblems(problem => problem.concat({ question: question, formula: formula, answer}))
-        
-        console.log("NEW PROBLEMS:", newProblems);
+        setNewProblems(problem => problem.concat({ question: question, formula: formula, answer, choiceCount, type}))
+        identifyChoiceProblems();
+
+        console.log("NEW PROBLEMS:", problems);
       }
       
     } catch (error) {
-      console.log("ERROR: ", error.message);
+      console.log("ERROR REPLACING VARIABLES: ", error.message);
     }
   }
-  
-  const x = 1;
-  const y = 2;
 
-  console.log("PROBLEMS", problems);
-  console.log("VARIABLES:", variables);
+  const identifyChoiceProblems = async () => {
+    try {
+      for (const problem of newProblems) {
+        if (problem.type === 0) {
+          setMultipleChoices(problem => problem.concat(problem));
+        }
+      }
+      setNewProblems(newProblems.filter(problem => problem.type !== 0));
+    } catch (error) {
+      console.log("ERROR IDENTIFYING PROBLEMS: ", error.message);
+    }
+  }
+
+  const assignChoices = async () => {
+    try {
+      for (const problem of multipleChoices) {
+        const choicesArray = ['A', 'B', 'C', 'D', 'E', 'F'];
+        let choiceValues = [];
+        let choices = {};
+  
+        for (let i=0; i < problem.choiceCount - 1; i++) {
+          choiceValues.push(randomVar(problem.answer - 10, problem.answer - 1));
+        }
+        choiceValues.push(problem.answer);
+        
+        const shuffledChoices = shuffle(choiceValues);
+        choiceValues = shuffledChoices;
+        
+        for (let choice = 0; choiceValues.length; choice++) {
+          choices[choicesArray[choice]] = choiceValues[choice];
+        }
+  
+        setNewProblems(problem => 
+          problem.concat({ 
+            question: problem.question,
+            formula: problem.formula,
+            answer: problem.answer,
+            type: problem.type,
+            choices
+          })
+        )
+      }
+    } catch (error) {
+      console.log("ERROR ASSIGNING CHOICES: ", error.message);
+    }
+  }
+
+  console.log(problems);
+  console.log(variables)
   
   useEffect(() => {
     fetchProblems();
@@ -116,6 +161,12 @@ export default function Quiz() {
   useEffect(() => {
     replaceQuestionVariables(problems, variables);
   }, [variables]);
+
+
+
+  useEffect(() => {
+    assignChoices();
+  }, [multipleChoices]);
 
   return (
     <Fragment>
