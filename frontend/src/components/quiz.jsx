@@ -14,6 +14,9 @@ export default function Quiz() {
   const [multipleChoices, setMultipleChoices] = useState([]);
   const [fillBlanks, setFillBlanks] = useState([]);
 
+  const [showScore, setShowScore] = useState(false)
+  const [score, setScore] = useState(0)
+
   const shuffle = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = math.floor(math.random() * (i + 1));
@@ -119,7 +122,7 @@ export default function Quiz() {
         console.log("CURRENT PROBLEM", problem);
 
         if (problem.type === 1) {
-          
+
           let filterDuplicate = multipleChoices.filter(p => p.id === problem.id);
 
           if (filterDuplicate.length === 0) {
@@ -129,7 +132,7 @@ export default function Quiz() {
         }
 
         if (problem.type === 0) {
-          
+
           let filterDuplicate = fillBlanks.filter(p => p.id === problem.id);
 
           if (filterDuplicate.length === 0) {
@@ -203,7 +206,7 @@ export default function Quiz() {
   }
 
   console.log("FINAL PROBLEMS", fixedProblems);
-  
+
   const addRemaining = () => {
     for (const fillBlankProblem of fillBlanks) {
       let filterDuplicate = fixedProblems.filter(p => p.id === fillBlankProblem.id);
@@ -238,26 +241,48 @@ export default function Quiz() {
     addRemaining();
   }, [fillBlanks])
 
+
+  const addScore = () => {
+    setScore(score + 1)
+
+  }
+
+  const submitTest = () => {
+    setShowScore(true)
+  }
+  
   return (
     <Fragment>
+
       <div>
         {fixedProblems.length !== 0
           ? fixedProblems.map(problem =>
             <div>
-              <p>{problem.type === 1 ? "Multiple Choices Problems" : "Fill In The Blanks"}</p>
-              <p>{problem.question}</p>
-              <p>{problem.answer}</p>
+              <div class="body-problem">
+                <div className="problem-card">
 
-              <div>
-                {problem.type === 0
-                  ?
-                  <input type="text" placeholder="Enter Input Here"></input>
-                  :
-                  <p>A: {problem.choices.A} B: {problem.choices.B} C: {problem.choices.C} D: {problem.choices.D}</p>
+                  <div class="card border-info mb-3">
+                    <div class="card-body">
+                    </div>
+                    <p>{problem.type === 1 ? "Multiple Choices Problems" : "Fill In The Blanks"}</p>
 
-                }
+                    <p>{problem.question}</p>
+                    <div>
+                      {problem.type === 0
+                        ?
+                        <input type="text" placeholder="Enter Input Here"></input>
+                        :
+                        <p>A: {problem.choices.A} B: {problem.choices.B} C: {problem.choices.C} D: {problem.choices.D}</p>
+
+                      }
+                    </div>
+                  </div>
+                </div>
               </div>
+
+
             </div>
+
           )
           : ""
         }

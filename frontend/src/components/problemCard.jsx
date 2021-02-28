@@ -56,7 +56,7 @@ export default function Quiz({ id, problem, solution, answer, addScore, index, f
     const handleAnswerSubmit = (event) => {
         event.preventDefault();
         let inputContainer = document.getElementById(`form${id}`);
-       
+
         if (blankInput == answer) {
             console.log(addScore())
         } else {
@@ -72,49 +72,40 @@ export default function Quiz({ id, problem, solution, answer, addScore, index, f
 
     return (
 
-        <div class="body-problem">
-            <div className="problem-card">
+        <div>
+            <p>{problem}</p>
+            {!formula ? (
+                <div id={"choices" + id}>
+                    {choices.map((c) => {
 
-                <div class="card border-info mb-3">
-                    <div class="card-body">
-                        <p>{problem}</p>
-
-                        {!formula ? (
-                            <div id={"choices" + id}>
-                                {choices.map((c) => {
-
-                                    return <div key={c.id} class="choices">
-                                        <ul>
-                                            <li class="li-choices">
-                                                <button value={c.content} onClick={() => { handleClick(c.is_correct) }}>{c.name + " " + c.content}</button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                })}
-                            </div>
-
-                        )
-                            : (
-                                <div id={"form" + id}>
-                                    <form onSubmit={handleAnswerSubmit}>
-                                        <input
-                                            id="blankInput"
-                                            value={blankInput}
-                                            onChange={onChange}
-                                            required
-                                        >
-                                        </input>
-                                        <button type="form">Submit</button>
-                                    </form>
-                                </div>
-                            )}
-
-                    </div>
+                        return <div key={c.id} class="choices">
+                            <ul>
+                                <li class="li-choices">
+                                    <button value={c.content} onClick={() => { handleClick(c.is_correct) }}>{c.name + " " + c.content}</button>
+                                </li>
+                            </ul>
+                        </div>
+                    })}
                 </div>
 
+            )
+                : (
+                    <div id={"form" + id}>
+                        <form onSubmit={handleAnswerSubmit}>
+                            <input
+                                id="blankInput"
+                                value={blankInput}
+                                onChange={onChange}
+                                required
+                            >
+                            </input>
+                            <button type="form">Submit</button>
+                        </form>
+                    </div>
+                )}
 
-            </div>
         </div>
+
 
     )
 }
